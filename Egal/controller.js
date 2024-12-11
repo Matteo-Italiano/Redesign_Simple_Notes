@@ -29,6 +29,9 @@ const controller = (() => {
 
     document.querySelector(`#${elementId} #existing-note-title`).innerText = title;
     document.querySelector(`#${elementId} #existing-note-text`).innerText = text;
+    document.querySelector(`#${elementId} #existing-note-title`).setAttribute("id", `existing-note-title-${noteId}` )
+    document.querySelector(`#${elementId} #existing-note-text`).setAttribute("id", `existing-note-text-${noteId}` )
+
 
     const checkbox = document.querySelector(`#${elementId} #existing-note-checkbox`);
     checkbox.setAttribute("value", `${noteId}`);
@@ -98,6 +101,8 @@ const controller = (() => {
     checkbox.checked = !checkbox.checked;
     setBorder(noteId);
     changeSelectorName(noteId);
+
+    showNote(noteId)
   }
 
   function importNotesAsJSON() {
@@ -229,21 +234,23 @@ const controller = (() => {
   }
 
   function changeSelectorName(noteId) {
-    let checkedBoxes = 0;
-    const allCheckboxes = document.querySelectorAll(".checkbox");
+//DO NOT TOUCH DISANLED FOR TESTING
 
-    allCheckboxes.forEach(checkbox => {
-      if (checkbox.checked) {
-        checkedBoxes += 1;
-      }
-    });
-
-    if (checkedBoxes === 0) {
-      document.getElementById('select-all').innerText = "Select all";
-    } else {
-      document.getElementById('select-all').innerText = "Deselect all";
-    }
-    setBorder(noteId);
+  //  let checkedBoxes = 0;
+  //  const allCheckboxes = document.querySelectorAll(".checkbox");
+//
+  //  allCheckboxes.forEach(checkbox => {
+  //    if (checkbox.checked) {
+  //      checkedBoxes += 1;
+  //    }
+  //  });
+//
+  //  if (checkedBoxes === 0) {
+  //    document.getElementById('select-all').innerText = "Select all";
+  //  } else {
+  //    document.getElementById('select-all').innerText = "Deselect all";
+  //  }
+  //  setBorder(noteId);
   }
 
   function setBorder(checkboxId) {
@@ -271,6 +278,14 @@ const controller = (() => {
     notes.forEach(createNote);
   }
 
+  function showNote(noteId){
+    let TitleToDisplay = document.getElementById(`existing-note-title-${noteId}`).innerText
+    let TextToDisplay = document.getElementById(`existing-note-text-${noteId}`).innerText
+  
+    document.getElementById("Title").innerText = TitleToDisplay
+    document.getElementById("Text").innerText = TextToDisplay
+  }
+
   return {
     addNote,
     deleteNote,
@@ -282,5 +297,6 @@ const controller = (() => {
     changeSelector: changeSelectorName,
     getFileExtension,
     ClickableDiv,
+    showNote,
   };
 })();

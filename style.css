@@ -1,0 +1,20 @@
+#note-display{
+    background-color: blue;
+    height: 100px;
+    width: 80%;
+}
+#notes-bar{
+    background-color: blueviolet;
+    height: 100px;
+    width: 20%;
+}
+
+.flex-container{
+    display: flex;
+}
+
+.flex-container > div {
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+}

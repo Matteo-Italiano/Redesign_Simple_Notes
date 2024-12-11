@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple notes</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="controller.js" ></script>
+    <script>
+      window.onload = controller.loadNotes;
+    </script>
+  </head>
+
+  <body>
+
+    <div class="flex-container">
+      
+      <div id="div-for-toolbox">
+        <div id="toolbox">
+          Hier kommt die Toolbar
+        </div>
+        <div id="notes-bar">
+
+          <div id="div-existing-notes">
+          </div>
+  
+        </div>
+      </div>
+      
+
+    <div id="note-display">
+      <div id="Title">
+        <p></p>
+      </div>
+
+      <div id="Date">
+        <p></p>
+      </div>
+
+      <div id="Text">
+        <p></p>
+      </div>
+      </div>
+      
+
+    </div>
+    
+    
+
+
+      
+      
+    <div id="existing-note-template" class="notes-container" hidden>
+      <div>
+        <h2 class="title" id="existing-note-title"></h2>
+      </div>
+      <div>
+        <p class="text" id="existing-note-text"></p>
+      </div>
+      <div>
+        <input type="checkbox" id="existing-note-checkbox" name="" value="" >
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript"></script>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+<main>
+    <h1>Simple Notes</h1>
+    <div class="add-notes-container">
+      <form id="form-note" onsubmit="return false">
+        <label id="Title-Label" for="input-add-note-title">Title</label>
+        <div id="Title-Input">
+          <input id="input-add-note-title" type="text" required />
+        </div>
+        <label id="Text-Label" for="textarea-add-note-text">Text</label>
+        <div id="Text-Input">
+          <textarea
+            id="textarea-add-note-text"
+            rows="4"
+            cols="50"
+            required
+          ></textarea>
+        </div>
+        <div>
+          <div>
+            <img id="gif" width="100" src="/Img/Vid/to-write-6621_256.gif" alt="GIF" />
+          </div>
+          <button
+            type="button"
+            class="green-background"
+            id="addButton"
+            onclick="controller.addNote()"
+          >
+            Add
+          </button>
+          <a id="downloadHyperlink">
+            <button
+              type="button"
+              id="exportBtn"
+              class="green-background"
+              onclick="controller.exportNotesAsJSON()"
+            >
+              Export
+            </button>
+          </a>
+          <button
+            type="button"
+            class="green-background"
+            onclick="controller.getFileExtension()"
+          >
+            Submit file
+          </button>
+          <input
+            type="file"
+            name="fileInput"
+            id="input"
+            accept="application/json"
+          />
+          <button id="delete-selected" onclick="controller.deleteSelected()">
+            <img width="30px" src="/Img/Vid/trash-bin-icon-flat-by-Vexels.svg" alt="Delete selected">
+          </button>
+          <button id="select-all" onclick="controller.selecter()">
+            Select all
+          </button>
+          <div class="container">
+
+            <button class="btn">Open</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <hr />

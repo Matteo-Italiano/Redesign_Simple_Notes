@@ -11,19 +11,18 @@ html {
 }
 
 body {
-    margin: 0;
+    margin-left: 0px;
     font-family: Tahoma, Helvetica, Arial sans-serif;
-    background-color: rgb(83, 198, 255);
+    background-color: rgb(230, 217, 217);
     color: white;
 }
 
 .notes-container {
-    border: 1px solid;
     padding: 6px;
     margin-top: 12px;
-    width: 1000px;
+
     border-radius: 10px;
-    background-color: #FF8C53
+    background-color: #ffffff
 }
 
 .notes-container>div {
@@ -118,7 +117,6 @@ textarea {
 .notes-container {
     justify-content: center;
     align-self: center;
-    margin-left: 600px;
 }
 
 h1 {
@@ -195,7 +193,6 @@ img {
 }
 
 .checkbox {
-    margin-left: 1000px;
 }
 
 button:hover {
@@ -244,5 +241,69 @@ button > img {
 
 .btn{
     background-color: #005f00;
-    
+}
+
+#div-existing-notes{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    width: 100%;
+    float: left;
+    border-radius: 5px;
+}
+
+#note-display{
+    background-color: blue;
+    height: 90vh;
+    width: 80%;
+    margin-bottom: 20px;
+}
+#notes-bar{
+    background-color: blueviolet;
+    height: 90vh;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+}
+
+.flex-container{
+    display: flex;
+}
+
+.flex-container > div {
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+}
+
+#div-for-toolbox{
+    background-color: blueviolet;
+    height: 90vh;
+    width: 20%;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+#toolbox{
+    background-color: #E1341E;
+}
+
+#Title{
+    font-size: 26px;
+    margin-left: 200px;
+    margin-top: 100px;
+    margin-right: 200px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+#Text{
+    margin: 100px;
+    font-size: 16px;
+    margin-left: 200px;
+    margin-bottom: 100px;
+    margin-right: 200px;
+    overflow: hidden;
+    overflow-wrap: break-word;
 }
