@@ -1,12 +1,14 @@
 const SIMPLE_NOTES_STORAGE_KEY = "simpleNotes";
 
 const controller = (() => {
-  let noteIds = []
-  let ausgewählt = []
+  let noteIds = [];
+  let ausgewählt = [];
 
   function createNote({ noteId, title, text }) {
     const existingNotes = document.getElementById("div-existing-notes");
-    const existingNoteTemplate = document.getElementById("existing-note-template");
+    const existingNoteTemplate = document.getElementById(
+      "existing-note-template"
+    );
 
     const newNode = existingNoteTemplate.cloneNode(true);
     newNode.removeAttribute("hidden");
@@ -14,128 +16,144 @@ const controller = (() => {
     newNode.setAttribute("id", elementId);
     existingNotes.appendChild(newNode);
 
-    document.querySelector(`#${elementId} #existing-note-title`).innerText = title;
-    document.querySelector(`#${elementId} #existing-note-text`).innerText = text;
-    document.querySelector(`#${elementId} #existing-note-title`).setAttribute("id", `existing-note-title-${noteId}` )
-    document.querySelector(`#${elementId} #existing-note-text`).setAttribute("id", `existing-note-text-${noteId}` )
-    document.querySelector(`#${elementId} #save_button`).setAttribute("id", `save_button-${noteId}`)
-    document.querySelector(`#${elementId}`).setAttribute("noteId", `${noteId}`)
-
-
-    const checkbox = document.querySelector(`#${elementId} #existing-note-checkbox`);
-    checkbox.setAttribute("value", `${noteId}`);
-    checkbox.setAttribute("class", "checkbox");
-    checkbox.setAttribute("id", `existing-note-checkbox-${noteId}`);
-
-    checkbox.setAttribute("onchange", `controller.changeSelector(${noteId})`);
+    document.querySelector(`#${elementId} #existing-note-title`).innerText =
+      title;
+    document.querySelector(`#${elementId} #existing-note-text`).innerText =
+      text;
+    document
+      .querySelector(`#${elementId} #existing-note-title`)
+      .setAttribute("id", `existing-note-title-${noteId}`);
+    document
+      .querySelector(`#${elementId} #existing-note-text`)
+      .setAttribute("id", `existing-note-text-${noteId}`);
+    document.querySelector(`#${elementId}`).setAttribute("noteId", `${noteId}`);
     newNode.setAttribute("onclick", `controller.divClicked(${noteId})`);
   }
 
   function addNoteToLocalStorage(note) {
     let notes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY));
-    notes.unshift((note));
+    notes.unshift(note);
     localStorage.setItem(SIMPLE_NOTES_STORAGE_KEY, JSON.stringify(notes));
-    noteIds.push(note.noteId)
+    noteIds.push(note.noteId);
   }
 
   function deleteNoteFromLocalStorage(id) {
     let notes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY));
 
-    const foundIndexOfLocalstorage = notes.findIndex(notes => notes.noteId === id)
-    const foundIndexOfIdList = noteIds.indexOf(id)
+    const foundIndexOfLocalstorage = notes.findIndex(
+      (notes) => notes.noteId === id
+    );
+    const foundIndexOfIdList = noteIds.indexOf(id);
 
     notes.splice(foundIndexOfLocalstorage, 1);
     localStorage.setItem(SIMPLE_NOTES_STORAGE_KEY, JSON.stringify(notes));
-    noteIds.splice(foundIndexOfIdList, 1)
+    noteIds.splice(foundIndexOfIdList, 1);
   }
 
   function exportNotesAsJSON() {
-    notesAsObjectString = []
+    notesAsObjectString = [];
 
-    returnselectedNotesArray()
+    returnselectedNotesArray();
 
-    allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
-
+    allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY));
 
     selectedNotesArray.forEach((noteId) => {
-      allNotes.forEach(element => {
+      allNotes.forEach((element) => {
         if (noteId == element.noteId) {
-          notesAsObjectString.push(JSON.stringify(element))
+          notesAsObjectString.push(JSON.stringify(element));
         }
       });
-    })
+    });
 
     if (notesAsObjectString == "[]") {
-      let isConfirmed = confirm("No Notes, are you sure that you want to download an empty file?")
+      let isConfirmed = confirm(
+        "No Notes, are you sure that you want to download an empty file?"
+      );
       if (isConfirmed) {
-        let downloadBtn = document.getElementById('download')
-        let notesasJSON = notesAsObjectString
-        let jsonFile = new Blob([notesasJSON], { type: 'application/json' })
+        let downloadBtn = document.getElementById("download");
+        let notesasJSON = notesAsObjectString;
+        let jsonFile = new Blob([notesasJSON], { type: "application/json" });
 
-        downloadBtn.href = URL.createObjectURL(jsonFile)
-        downloadBtn.download = "JSON.json"
+        downloadBtn.href = URL.createObjectURL(jsonFile);
+        downloadBtn.download = "JSON.json";
       }
     } else {
-      let downloadBtn = document.getElementById('downloadHyperlink')
-      let notesAsJSON = notesAsObjectString
-      let jsonFile = new Blob([notesAsJSON], { type: 'application/json' })
+      let downloadBtn = document.getElementById("downloadHyperlink");
+      let notesAsJSON = notesAsObjectString;
+      let jsonFile = new Blob([notesAsJSON], { type: "application/json" });
 
-      downloadBtn.href = URL.createObjectURL(jsonFile)
-      downloadBtn.download = "JSON.json"
+      downloadBtn.href = URL.createObjectURL(jsonFile);
+      downloadBtn.download = "JSON.json";
     }
   }
 
   function divClicked(noteId) {
-                                 // const checkbox = document.getElementById(`existing-note-checkbox-${noteId}`);
-                                  // checkbox.checked = !checkbox.checked;
-                                  document.addEventListener("DOMContentLoaded", () => {
-                                    // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
-                                  })
+    // const checkbox = document.getElementById(`existing-note-checkbox-${noteId}`);
+    // checkbox.checked = !checkbox.checked;
+    document.addEventListener("DOMContentLoaded", () => {
+      // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
+    });
 
-    noteToSave = document.querySelector(`[selected=""]`)
-    titleToSave = document.getElementById(`Title`).value
-    textToSave = document.getElementById(`Text`).value
-    noteIdToSaveTo = noteToSave.getAttribute("noteid")
+    document.querySelectorAll(`[selected]`).forEach((note) => {
+      note.style.backgroundColor = "#FFFFFF"; // Zurücksetzen der Hintergrundfarbe
+      note.removeAttribute("selected");
+    });
+    // Wähle die neue Notiz und setze den Status
+    const note = document.getElementById(`existing-node-${noteId}`);
+    note.style.backgroundColor = "#F2F2F2";
+    note.setAttribute("selected", "");
 
-    let parsedLocalstorgeObjects = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
+    displayNote(noteId);
+    selectorHandler(noteId);
+  }
 
-    parsedLocalstorgeObjects.forEach(object => {
-      if (object.noteId == noteIdToSaveTo){
-        object.title = titleToSave
-        object.text = textToSave
+  function saveNote() {
+    const titleToSave = document.getElementById(`Title`).value;
+    const textToSave = document.getElementById(`Text`).value;
+
+    const noteToSave = document.querySelector(`[selected]`);
+    const noteIdToSaveTo = noteToSave.getAttribute("noteid");
+
+    let parsedLocalstorgeObjects = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)
+    );
+
+    parsedLocalstorgeObjects.forEach((object) => {
+      if (object.noteId == noteIdToSaveTo) {
+        object.title = titleToSave;
+        object.text = textToSave;
       }
     });
 
-    localStorage.setItem(SIMPLE_NOTES_STORAGE_KEY, JSON.stringify(parsedLocalstorgeObjects))
-    
+    localStorage.setItem(
+      SIMPLE_NOTES_STORAGE_KEY,
+      JSON.stringify(parsedLocalstorgeObjects)
+    );
 
-    
-    displayNote(noteId)
-    selectorHandler(noteId)
+    location.reload();
   }
 
-  function selectorHandler(noteId){
+  function selectorHandler(noteId) {
     document.addEventListener("DOMContentLoaded", () => {
       // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
-    })
+    });
 
-    let ausgewählt = document.querySelectorAll(`[selected=""]`)
+    let ausgewählt = document.querySelectorAll(`[selected=""]`);
 
     if (ausgewählt.length == 0) {
-      const note = document.getElementById(`existing-node-${noteId}`)
-      note.style.backgroundColor = "#F2F2F2"
-      note.setAttribute(`selected-note-${noteId}`, "")
-      note.setAttribute(`selected`, "")
+      const note = document.getElementById(`existing-node-${noteId}`);
+      note.style.backgroundColor = "#F2F2F2";
+      note.setAttribute(`selected-note-${noteId}`, "");
+      note.setAttribute(`selected`, "");
     } else {
-      ausgewählt.forEach(selected => {
-        selected.style.backgroundColor = "#FFFFFF"
-        selected.removeAttribute("selected")
+      ausgewählt.forEach((selected) => {
+        selected.style.backgroundColor = "#FFFFFF";
+        selected.removeAttribute("selected");
       });
 
-      const note = document.getElementById(`existing-node-${noteId}`)
-      note.style.backgroundColor = "#F2F2F2"
-      note.setAttribute("selected", "")
-      note.setAttribute(`selected-note-${noteId}`, "")
+      const note = document.getElementById(`existing-node-${noteId}`);
+      note.style.backgroundColor = "#F2F2F2";
+      note.setAttribute("selected", "");
+      note.setAttribute(`selected-note-${noteId}`, "");
     }
   }
 
@@ -144,100 +162,100 @@ const controller = (() => {
     let parsedArray;
 
     reader.onload = (evt) => {
-      parsedArray = JSON.parse(evt.target.result)
-      createImport(parsedArray)
-    }
-    reader.readAsText(document.getElementById('input').files[0])
+      parsedArray = JSON.parse(evt.target.result);
+      createImport(parsedArray);
+    };
+    reader.readAsText(document.getElementById("input").files[0]);
 
     function createImport(parsedArray) {
       parsedArray.forEach((object) => {
-        checkIfNoteIdIsIncluded(object)
+        checkIfNoteIdIsIncluded(object);
 
         function checkIfNoteIdIsIncluded(object) {
-          let notes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
+          let notes = JSON.parse(
+            localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)
+          );
 
           for (let i = 0; i <= notes.length; i++) {
             if (noteIds.length == 0) {
-              createIdNote(object)
+              createIdNote(object);
             }
             if (noteIds.includes(object.noteId)) {
               // does not create the note
-            } else createIdNote(object)
-
+            } else createIdNote(object);
           }
         }
-      })
+      });
     }
   }
 
   function getFileExtension() {
-    if (document.getElementById('input').files[0]) {
-      importNotesAsJSON()
+    if (document.getElementById("input").files[0]) {
+      importNotesAsJSON();
     } else {
-      alert("Bro, are you good? There aren't any notes to import XD")
+      alert("Bro, are you good? There aren't any notes to import XD");
     }
   }
 
   function createIdNote(object) {
-    createNote(object)
-    addNoteToLocalStorage(object)
-    loadNotes()
+    createNote(object);
+    addNoteToLocalStorage(object);
+    loadNotes();
   }
 
   function addNote() {
-      title = ""
-      text = ""
+    title = "";
+    text = "";
 
-      const noteId = new Date().getTime().toString();
+    const noteId = new Date().getTime().toString();
 
-      addNoteToLocalStorage({ noteId, title, text });
-      loadNotes();
-      divClicked(noteId)
+    addNoteToLocalStorage({ noteId, title, text });
+    loadNotes();
+    divClicked(noteId);
   }
 
   function deleteSelected() {
+    returnselectedNotesArray();
 
-    returnselectedNotesArray()
-
-
-    if (selectedNotesArray.length == JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)).length) {
-      let isConfirmed = confirm("are you sure you want to delete all Notes?")
+    if (
+      selectedNotesArray.length ==
+      JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)).length
+    ) {
+      let isConfirmed = confirm("are you sure you want to delete all Notes?");
 
       if (isConfirmed) {
-
-          selectedNotesArray.forEach(noteId => {
-            deleteNote(noteId)
-          })
+        selectedNotesArray.forEach((noteId) => {
+          deleteNote(noteId);
+        });
       } else {
-        }
-      } else {
-        if (selectedNotesArray.length > 0) {
-          selectedNotesArray.forEach(noteId => {
-            deleteNote(noteId)
-          })
       }
-    };
-    selectCheckbox()
+    } else {
+      if (selectedNotesArray.length > 0) {
+        selectedNotesArray.forEach((noteId) => {
+          deleteNote(noteId);
+        });
+      }
+    }
+    selectCheckbox();
   }
 
-  function returnselectedNotesArray(){
-    const checkboxes = document.querySelectorAll(".checkbox:checked")
-    selectedNotesArray = []
+  function returnselectedNotesArray() {
+    const checkboxes = document.querySelectorAll(".checkbox:checked");
+    selectedNotesArray = [];
 
     checkboxes.forEach((checkbox) => {
-      selectedNotesArray.push(checkbox.defaultValue)
+      selectedNotesArray.push(checkbox.defaultValue);
     });
 
-    return selectedNotesArray
+    return selectedNotesArray;
   }
-
 
   function selectCheckbox() {
     const checkedBoxes = [];
     const uncheckedBoxes = [];
     const allCheckboxes = document.querySelectorAll(".checkbox");
 
-    allCheckboxes.forEach(element => {
+    allCheckboxes.forEach((element) => {
       if (element.checked) {
         checkedBoxes.push(element);
       } else {
@@ -245,17 +263,17 @@ const controller = (() => {
       }
     });
 
-    const selectAllButton = document.getElementById('select-all');
+    const selectAllButton = document.getElementById("select-all");
 
     if (selectAllButton.innerText === "Select all") {
-      uncheckedBoxes.forEach(element => {
+      uncheckedBoxes.forEach((element) => {
         element.checked = true;
         const noteId = element.value;
         setBorder(noteId);
       });
       selectAllButton.innerText = "Deselect all";
     } else {
-      checkedBoxes.forEach(element => {
+      checkedBoxes.forEach((element) => {
         element.checked = false;
         const noteId = element.value;
         setBorder(noteId);
@@ -263,8 +281,6 @@ const controller = (() => {
       selectAllButton.innerText = "Select all";
     }
   }
-
-  
 
   function deleteNote(noteId) {
     deleteNoteFromLocalStorage(noteId);
@@ -283,17 +299,31 @@ const controller = (() => {
     notes.forEach(createNote);
   }
 
-  function displayNote(noteId){
-    let displayingTitle =  document.getElementById(`existing-note-title-${noteId}`).innerText
-    let displaingText = document.getElementById(`existing-note-text-${noteId}`).innerText
+  function displayNote(noteId) {
+    const allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
+    
 
-  
-    document.getElementById("Title").innerText = displayingTitle
-    document.getElementById("Text").innerText = displaingText
+    allNotes.forEach(note => {
+      if (note.noteId == noteId) {
+        const noteToDisplay = note
+
+        document.getElementById("Title").innerText = noteToDisplay.title;
+      document.getElementById("Text").innerText = noteToDisplay.text;
+      }
+      
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
+    });
+
+    // Setze Titel und Text in die Eingabefelder
+    
   }
 
   return {
     addNote,
+    saveNote,
     deleteNote,
     loadNotes,
     exportNotesAsJSON,
