@@ -2,6 +2,7 @@ const SIMPLE_NOTES_STORAGE_KEY = "simpleNotes";
 
 const controller = (() => {
   let noteIds = []
+  let ausgewählt = []
 
   function getAndClearInputNoteTitle() {
     const element = document.getElementById("input-add-note-title");
@@ -44,7 +45,7 @@ const controller = (() => {
 
   function addNoteToLocalStorage(note) {
     let notes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY));
-    notes.push(note);
+    notes.unshift((note));
     localStorage.setItem(SIMPLE_NOTES_STORAGE_KEY, JSON.stringify(notes));
     noteIds.push(note.noteId)
   }
@@ -96,13 +97,42 @@ const controller = (() => {
     }
   }
 
+  function NoteMaker(){
+
+  }
+
   function ClickableDiv(noteId) {
     const checkbox = document.getElementById(`existing-note-checkbox-${noteId}`);
     checkbox.checked = !checkbox.checked;
     setBorder(noteId);
     changeSelectorName(noteId);
-
     showNote(noteId)
+    selectorHandler(noteId)
+  }
+
+  function selectorHandler(noteId){
+    document.addEventListener("DOMContentLoaded", () => {
+      // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
+    })
+
+    
+
+    let ausgewählt = document.querySelectorAll(`[selected=""]`)
+
+    if (ausgewählt.length == 0) {
+      const note = document.getElementById(`existing-node-${noteId}`)
+      note.style.backgroundColor = "#F2F2F2"
+      note.setAttribute("selected", "")
+    } else {
+      ausgewählt.forEach(selected => {
+        selected.style.backgroundColor = "#FFFFFF"
+        selected.removeAttribute("selected")
+      });
+
+      const note = document.getElementById(`existing-node-${noteId}`)
+      note.style.backgroundColor = "#F2F2F2"
+      note.setAttribute("selected", "")
+    }
   }
 
   function importNotesAsJSON() {
@@ -150,9 +180,9 @@ const controller = (() => {
     loadNotes()
   }
 
-  function addNote() {
-    const title = getAndClearInputNoteTitle();
-    const text = getAndClearTextareaNoteText();
+  function addNote(title, text) {
+    //const title = getAndClearInputNoteTitle();
+    //const text = getAndClearTextareaNoteText();
 
     if (!title || !text) {
       return;
@@ -162,6 +192,7 @@ const controller = (() => {
 
     addNoteToLocalStorage({ noteId, title, text });
     loadNotes();
+    ClickableDiv(noteId)
   }
 
   function deleteSelected() {
@@ -254,11 +285,11 @@ const controller = (() => {
   }
 
   function setBorder(checkboxId) {
-    if (document.getElementById(`existing-note-checkbox-${checkboxId}`).checked == true) {
-      document.getElementById(`existing-node-${checkboxId}`).style.border = "2px solid white"
-    } else {
-      document.getElementById(`existing-node-${checkboxId}`).style.border = "none"
-    }
+  //  if (document.getElementById(`existing-note-checkbox-${checkboxId}`).checked == true) {
+  //    document.getElementById(`existing-node-${checkboxId}`).style.border = "2px solid white"
+  //  } else {
+  //    document.getElementById(`existing-node-${checkboxId}`).style.border = "none"
+  //  }
   }
 
   function deleteNote(noteId) {

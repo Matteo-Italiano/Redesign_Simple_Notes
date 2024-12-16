@@ -248,7 +248,6 @@ button > img {
     color: rgb(0, 0, 0);
     width: 100%;
     float: left;
-    border-radius: 5px;
 }
 
 #note-display{
@@ -286,7 +285,13 @@ button > img {
 }
 
 #toolbox{
-    background-color: #E1341E;
+    background-color: #F2F2F2;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    padding-top: 10px;
+    display: inline-flex;
+    width: 100%;
 }
 
 #Title{
@@ -296,6 +301,7 @@ button > img {
     margin-right: 200px;
     overflow: hidden;
     overflow-wrap: break-word;
+    
 }
 
 #Text{
@@ -307,3 +313,25 @@ button > img {
     overflow: hidden;
     overflow-wrap: break-word;
 }
+
+.logo{
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    padding-top: 10px;
+}
+
+.search_bar{
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.search_bar > input{
+    border: none;
+    outline: none;
+}
+
