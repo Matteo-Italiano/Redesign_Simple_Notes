@@ -4,20 +4,6 @@ const controller = (() => {
   let noteIds = []
   let ausgewählt = []
 
-  function getAndClearInputNoteTitle() {
-    const element = document.getElementById("input-add-note-title");
-    const value = element.value;
-    element.value = "";
-    return value;
-  }
-
-  function getAndClearTextareaNoteText() {
-    const element = document.getElementById("textarea-add-note-text");
-    const value = element.value;
-    element.value = "";
-    return value;
-  }
-
   function createNote({ noteId, title, text }) {
     const existingNotes = document.getElementById("div-existing-notes");
     const existingNoteTemplate = document.getElementById("existing-note-template");
@@ -32,6 +18,8 @@ const controller = (() => {
     document.querySelector(`#${elementId} #existing-note-text`).innerText = text;
     document.querySelector(`#${elementId} #existing-note-title`).setAttribute("id", `existing-note-title-${noteId}` )
     document.querySelector(`#${elementId} #existing-note-text`).setAttribute("id", `existing-note-text-${noteId}` )
+    document.querySelector(`#${elementId} #save_button`).setAttribute("id", `save_button-${noteId}`)
+    document.querySelector(`#${elementId}`).setAttribute("noteId", `${noteId}`)
 
 
     const checkbox = document.querySelector(`#${elementId} #existing-note-checkbox`);
@@ -40,7 +28,7 @@ const controller = (() => {
     checkbox.setAttribute("id", `existing-note-checkbox-${noteId}`);
 
     checkbox.setAttribute("onchange", `controller.changeSelector(${noteId})`);
-    newNode.setAttribute("onclick", `controller.ClickableDiv(${noteId})`);
+    newNode.setAttribute("onclick", `controller.divClicked(${noteId})`);
   }
 
   function addNoteToLocalStorage(note) {
@@ -97,16 +85,32 @@ const controller = (() => {
     }
   }
 
-  function NoteMaker(){
+  function divClicked(noteId) {
+                                 // const checkbox = document.getElementById(`existing-note-checkbox-${noteId}`);
+                                  // checkbox.checked = !checkbox.checked;
+                                  document.addEventListener("DOMContentLoaded", () => {
+                                    // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
+                                  })
 
-  }
+    noteToSave = document.querySelector(`[selected=""]`)
+    titleToSave = document.getElementById(`Title`).value
+    textToSave = document.getElementById(`Text`).value
+    noteIdToSaveTo = noteToSave.getAttribute("noteid")
 
-  function ClickableDiv(noteId) {
-    const checkbox = document.getElementById(`existing-note-checkbox-${noteId}`);
-    checkbox.checked = !checkbox.checked;
-    setBorder(noteId);
-    changeSelectorName(noteId);
-    showNote(noteId)
+    let parsedLocalstorgeObjects = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
+
+    parsedLocalstorgeObjects.forEach(object => {
+      if (object.noteId == noteIdToSaveTo){
+        object.title = titleToSave
+        object.text = textToSave
+      }
+    });
+
+    localStorage.setItem(SIMPLE_NOTES_STORAGE_KEY, JSON.stringify(parsedLocalstorgeObjects))
+    
+
+    
+    displayNote(noteId)
     selectorHandler(noteId)
   }
 
@@ -115,14 +119,13 @@ const controller = (() => {
       // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
     })
 
-    
-
     let ausgewählt = document.querySelectorAll(`[selected=""]`)
 
     if (ausgewählt.length == 0) {
       const note = document.getElementById(`existing-node-${noteId}`)
       note.style.backgroundColor = "#F2F2F2"
-      note.setAttribute("selected", "")
+      note.setAttribute(`selected-note-${noteId}`, "")
+      note.setAttribute(`selected`, "")
     } else {
       ausgewählt.forEach(selected => {
         selected.style.backgroundColor = "#FFFFFF"
@@ -132,6 +135,7 @@ const controller = (() => {
       const note = document.getElementById(`existing-node-${noteId}`)
       note.style.backgroundColor = "#F2F2F2"
       note.setAttribute("selected", "")
+      note.setAttribute(`selected-note-${noteId}`, "")
     }
   }
 
@@ -180,19 +184,15 @@ const controller = (() => {
     loadNotes()
   }
 
-  function addNote(title, text) {
-    //const title = getAndClearInputNoteTitle();
-    //const text = getAndClearTextareaNoteText();
+  function addNote() {
+      title = ""
+      text = ""
 
-    if (!title || !text) {
-      return;
-    }
+      const noteId = new Date().getTime().toString();
 
-    const noteId = new Date().getTime().toString();
-
-    addNoteToLocalStorage({ noteId, title, text });
-    loadNotes();
-    ClickableDiv(noteId)
+      addNoteToLocalStorage({ noteId, title, text });
+      loadNotes();
+      divClicked(noteId)
   }
 
   function deleteSelected() {
@@ -264,33 +264,7 @@ const controller = (() => {
     }
   }
 
-  function changeSelectorName(noteId) {
-//DO NOT TOUCH DISANLED FOR TESTING
-
-  //  let checkedBoxes = 0;
-  //  const allCheckboxes = document.querySelectorAll(".checkbox");
-//
-  //  allCheckboxes.forEach(checkbox => {
-  //    if (checkbox.checked) {
-  //      checkedBoxes += 1;
-  //    }
-  //  });
-//
-  //  if (checkedBoxes === 0) {
-  //    document.getElementById('select-all').innerText = "Select all";
-  //  } else {
-  //    document.getElementById('select-all').innerText = "Deselect all";
-  //  }
-  //  setBorder(noteId);
-  }
-
-  function setBorder(checkboxId) {
-  //  if (document.getElementById(`existing-note-checkbox-${checkboxId}`).checked == true) {
-  //    document.getElementById(`existing-node-${checkboxId}`).style.border = "2px solid white"
-  //  } else {
-  //    document.getElementById(`existing-node-${checkboxId}`).style.border = "none"
-  //  }
-  }
+  
 
   function deleteNote(noteId) {
     deleteNoteFromLocalStorage(noteId);
@@ -309,12 +283,13 @@ const controller = (() => {
     notes.forEach(createNote);
   }
 
-  function showNote(noteId){
-    let TitleToDisplay = document.getElementById(`existing-note-title-${noteId}`).innerText
-    let TextToDisplay = document.getElementById(`existing-note-text-${noteId}`).innerText
+  function displayNote(noteId){
+    let displayingTitle =  document.getElementById(`existing-note-title-${noteId}`).innerText
+    let displaingText = document.getElementById(`existing-note-text-${noteId}`).innerText
+
   
-    document.getElementById("Title").innerText = TitleToDisplay
-    document.getElementById("Text").innerText = TextToDisplay
+    document.getElementById("Title").innerText = displayingTitle
+    document.getElementById("Text").innerText = displaingText
   }
 
   return {
@@ -324,10 +299,9 @@ const controller = (() => {
     exportNotesAsJSON,
     importNotesAsJSON,
     deleteSelected,
-    selecter: selectCheckbox,
-    changeSelector: changeSelectorName,
+    selectCheckbox,
     getFileExtension,
-    ClickableDiv,
-    showNote,
+    divClicked,
+    displayNote,
   };
 })();

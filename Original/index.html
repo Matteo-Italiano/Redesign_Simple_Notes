@@ -26,7 +26,7 @@
           </div>
 
           <div class="create_note">
-            <img src="/Img/n-edit 1.png" alt="create_note" onclick="controller.addNote(`Gebe der Notiz einen Titel`, `Gebe der Notiz einen Text`)">
+            <img src="/Img/n-edit 1.png" alt="create_note" onclick="controller.addNote()">
           </div>
         </div>
         <div id="notes-bar">
@@ -39,16 +39,20 @@
       
 
     <div id="note-display">
-      <div id="Title">
-        <p></p>
+      <div id="titler">
+        <textarea name="title" id="Title" placeholder="Gebe der Notiz einen Titel">
+        </textarea>
       </div>
 
       <div id="Date">
         <p></p>
       </div>
 
-      <div id="Text">
+      <div id="texter">
         <p></p>
+        <textarea name="text" id="Text" placeholder="Gebe der Notiz einen Text">
+
+        </textarea>
       </div>
       </div>
       
@@ -60,15 +64,18 @@
 
       
       
-    <div id="existing-note-template" class="notes-container" hidden>
+    <div id="existing-note-template" noteid="000000"   selected="" class="notes-container" hidden>
       <div>
-        <h2 class="title" id="existing-note-title"></h2>
+        <h2 class="title" id="existing-note-title" placeholder=""></h2>
       </div>
       <div>
         <p class="text" id="existing-note-text"></p>
       </div>
       <div>
         <input type="checkbox" id="existing-note-checkbox" name="" value="" >
+      </div>
+      <div>
+        <button id="save_button" onclick="controller.loadNotes()" style="background-color:rgb(0, 136, 255)">save</button>
       </div>
     </div>
   </body>

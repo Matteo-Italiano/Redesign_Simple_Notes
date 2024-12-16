@@ -1,0 +1,42 @@
+function changeSelectorName(noteId) {
+//DO NOT TOUCH DISANLED FOR TESTING
+
+  //  let checkedBoxes = 0;
+  //  const allCheckboxes = document.querySelectorAll(".checkbox");
+//
+  //  allCheckboxes.forEach(checkbox => {
+  //    if (checkbox.checked) {
+  //      checkedBoxes += 1;
+  //    }
+  //  });
+//
+  //  if (checkedBoxes === 0) {
+  //    document.getElementById('select-all').innerText = "Select all";
+  //  } else {
+  //    document.getElementById('select-all').innerText = "Deselect all";
+  //  }
+  //  setBorder(noteId);
+  }
+
+  function setBorder(checkboxId) {
+  //  if (document.getElementById(`existing-note-checkbox-${checkboxId}`).checked == true) {
+  //    document.getElementById(`existing-node-${checkboxId}`).style.border = "2px solid white"
+  //  } else {
+  //    document.getElementById(`existing-node-${checkboxId}`).style.border = "none"
+  //  }
+  }
+
+
+   function getAndClearTextareaNoteText() {
+    const element = document.getElementById("textarea-add-note-text");
+    const value = element.value;
+    element.value = "";
+    return value;
+  }
+  
+    function getAndClearInputNoteTitle() {
+    const element = document.getElementById("input-add-note-title");
+    const value = element.value;
+    element.value = "";
+    return value;
+  }
