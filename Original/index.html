@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="controller.js" ></script>
     <script>
+      
       window.onload = controller.loadNotes;
+      
     </script>
   </head>
 
@@ -15,48 +17,56 @@
 
     <div class="flex-container">
       
-      <div id="div-for-toolbox">
+      <div id="flex-for-toolbox-and-notesbar">
+                <img id="retract-button" onclick="controller.retract()" src="/Img/Button 01.png" alt="" >
+
         <div id="toolbox">
-          <div class="logo">
-            <img src="/Img/Group 57.png" alt="">
+          <div id="logo-for-toolbox">
+            <img id="logo" src="/Img/Group 57.png" alt="" >
           </div>
 
-          <div class="search_bar">
-            <input type="text" placeholder="Search">
+          <div class="search_bar_class">
+            <input id="search_bar" type="text" placeholder="Search">
           </div>
 
-          <div class="create_note">
-            <img src="/Img/n-edit 1.png" alt="create_note" onclick="controller.addNote()">
+          <div name="create_note">
+            <img id="create_note_image" src="/Img/n-edit 1.png" alt="create_note" onclick="controller.addNote()">
           </div>
         </div>
+
+
         <div id="notes-bar">
-
           <div id="div-existing-notes">
+            <!----Hier sind alle Notes-->
           </div>
-  
+          <!--<img id="retract-button" onclick="controller.retract()" src="/Img/Button 01.png" alt="" >-->
         </div>
+
       </div>
+
       
 
     <div id="note-display">
-      <div id="titler">
-        <textarea name="title" id="Title" placeholder="Gebe der Notiz einen Titel">
-        </textarea>
-      </div>
-
-      <div id="Date">
-        <p></p>
-      </div>
-
-      <div id="texter">
-        <p></p>
-        <textarea name="text" id="Text" placeholder="Gebe der Notiz einen Text">
-        </textarea>
-      </div>
-      <button id="save_button" onclick="controller.saveNote()" style="background-color:rgb(255, 98, 0)">save</button>
-      </div>
+      <img id="delete-bin-image" onclick="controller.deleteNoteNew()" src="/Img/bin 1.png" alt="">
       
+      <div name="A4-Blatt" id="A4-Blatt">
+        
 
+        <div id="title-area-div">
+          <h2 class="note-display" id="title-area" contenteditable="true"></h2>  
+        </div>
+  
+        <div >
+          <p class="note-display" id="date-on-note-display"></p>
+        </div>
+  
+        <div>
+          <p class="note-display" id="text-area" contenteditable="true"></p>
+        </div>
+
+      </div>
+
+      <button id="save_button" onclick="controller.saveNote()" style="background-color:rgb(255, 98, 0)">save</button>
     </div>
     
     
@@ -70,6 +80,9 @@
       </div>
       <div>
         <p class="text" id="existing-note-text"></p>
+      </div>
+      <div>
+        <p id="date-for-small-note"></p>
       </div>
       <div>
       </div>

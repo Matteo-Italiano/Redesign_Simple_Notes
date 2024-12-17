@@ -13,41 +13,12 @@ html {
 body {
     margin-left: 0px;
     font-family: Tahoma, Helvetica, Arial sans-serif;
-    background-color: rgb(255, 255, 255);
+    background-color: #F2F2F2;
     color: white;
-}
-
-.notes-container {
-    padding: 6px;
-    margin-top: 12px;
-
-    border-radius: 10px;
-    background-color: #ffffff
-}
-
-.notes-container>div {
-    margin: 6px;
-    border-radius: 10px;
-}
-
-#delete-selected {
-    color: rgb(255, 255, 255);
-    background-color: #E1341E;
-}
-
-#delete-selected:hover {
-    color: rgb(255, 255, 255);
-    background-color: rgb(135, 6, 6);
-}
-
-#select-all {
-    color: rgb(255, 255, 255);
-    background-color: #5370FF
-}
-
-#select-all:hover {
-    color: rgb(255, 255, 255);
-    background-color: rgb(25, 3, 115);
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 button {
@@ -66,52 +37,28 @@ button {
     transition: background-color 0.3s;
 }
 
-.green-background:hover {
-    background-color: #005f00;
-}
-
 button:active {
     transform: scale(0.98);
 }
 
-.green-background {
-    background-color: #3aac99;
-    color: White
+button:hover {
+    cursor: pointer;
 }
 
-textarea {
-    resize: none;
-    padding: 8px;
-    width: 100%;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: black
+h2 {
+    font-size: 0.83vw;
 }
 
-label {
-    width: auto;
-    margin-right: 8px;
-    font-weight: bold;
+.notes-container {
+    padding: 6px;
+    margin-top: 12px;
+    border-radius: 10px;
+    background-color: #ffffff
 }
 
-.add-notes-container div {
-    margin: 12px;
-    display: flex;
-    align-items: center;
-    border-radius: 50px;
-}
-
-.add-notes-container div input,
-textarea {
-    width: 500px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 25px;
-}
-
-.add-notes-container div label {
-    width: 50px;
-    vertical-align: center;
-    border-radius: 20px;
+.notes-container>div {
+    margin: 6px;
+    border-radius: 10px;
 }
 
 .notes-container {
@@ -119,128 +66,12 @@ textarea {
     align-self: center;
 }
 
-h1 {
-    padding: 80px;
-    padding-left: 920px;
-    font-size: 70px;
-}
-
-#Title-Input,
-#Text-Input {
-    padding-left: 900px;
-    margin-bottom: 50px;
-}
-
-#input {
-    margin-left: 50px;
-}
-
-#addButton {
-    margin-left: 240px;
-}
-
-#Text-Label, #Title-Label {
-    margin-left: 1125px;
-    margin-top: 10px;
-    font-size: 20px;
-}
-
-img {
-    margin-left: 10px;
-}
-
-.video-bg {
-    position: absolute;
-    z-index: -1;
-    min-width: 100%;
-    min-height: 100%;
-}
-
-#NextBtn {
-    background-color: transparent;
-    border: 2px solid white;
-    border-color: white;
-    font-size: 30px;
-    height: 50px;
-    width: 250px;
-}
-
-#NextBtn:hover {
-    background-color: grey
-}
-
-.hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: transparent;
-    color: transparent;
-    margin-bottom: 100px;
-    padding: 200px 0;
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
-}
-
-.blend {
-    position: relative;
-    top: -100px;
-    height: 100px;
-    width: 100px;
-    background: linear-gradient(to bottom, rgba(21, 31, 27, 0) 0%, rgba(21, 31, 27, 1) 100%);
-    background-repeat: repeat-x;
-}
-
-.checkbox {
-}
-
-button:hover {
-    cursor: pointer;
-}
-
 .notes-container:last-child {
-    margin-bottom: 100PX;
+    margin-bottom: 50px;
 }
 
 .notes-container:hover {
     cursor: pointer;
-}
-
-.title {
-    font-size: 50px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.text {
-    font-size: 20px;
-    margin-bottom: 20px;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-#delete-selected {
-    align-items: center;
-    place-items: center;
-    justify-content: center;
-}
-
-button > img {
-    margin: 0px;
-}
-
-#textarea-add-note-text{
-    font-size: 20px;
-    background-color: #ffffff;
-}
-
-#input-add-note-title{
-    font-size: 25px;
-    height: 75px;
-}
-
-.btn{
-    background-color: #ffffff;
 }
 
 #div-existing-notes{
@@ -253,11 +84,14 @@ button > img {
 #note-display{
     background-color: rgb(251, 251, 251);
     color: black;
-    height: 90vh;
+    height: 100vh;
     width: 80%;
-    margin-bottom: 20px;
+    margin: 0px;
+    padding:0px;
 }
+
 #notes-bar{
+    position: relative;
     background-color: rgb(255, 255, 255);
     color: black;
     height: 90vh;
@@ -265,7 +99,6 @@ button > img {
     margin-bottom: 20px;
     overflow: hidden;
     overflow-y: scroll;
-
 }
 
 .flex-container{
@@ -273,9 +106,16 @@ button > img {
 }
 
 .flex-container > div {
-    margin: 10px;
     padding: 20px;
-    font-size: 30px;
+    font-size: 2.3vw;
+}
+
+#flex-for-toolbox-and-notesbar{
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+    width: 18%;
 }
 
 #div-for-toolbox{
@@ -288,7 +128,7 @@ button > img {
 
 #toolbox{
     background-color: #F2F2F2;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     align-self: center;
     padding-top: 10px;
@@ -296,53 +136,203 @@ button > img {
     width: 100%;
 }
 
-#Title{
-    font-size: 26px;
-    margin-left: 200px;
-    margin-top: 100px;
-    margin-right: 200px;
-    overflow: hidden;
-    overflow-wrap: break-word;
+#logo-for-toolbox{
+    align-self: left;
+    justify-self: left;
     
 }
 
-#Text{
-    margin: 100px;
-    font-size: 16px;
-    margin-left: 200px;
-    margin-bottom: 100px;
-    margin-right: 200px;
+#title-area{
+    font-size: 1.35vw;
+    margin-top: 100px;
     overflow: hidden;
     overflow-wrap: break-word;
+    width: 90%;
+    height: 10vh;
+border: none;
+outline: none;
 }
 
-.logo{
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    padding-top: 10px;
+#text-area{
+    font-size: 0.83vw;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    width: 90%;
+    height: 50vh;
+    margin-top: 90px;
+    margin-bottom: 10px;
+border: none;
+outline: none;
+    
 }
 
-.search_bar{
+.search_bar_class{
     justify-content: center;
     align-items: center;
     align-self: center;
     padding-left: 10px;
     padding-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
-.search_bar > input{
+#search_bar{
+    border-radius:5px;
     border: none;
     outline: none;
+    width: 100%;
+    height: 34px;
 }
 
-#Title{
-border: none;
-outline: none;
+#date-on-note-display{
+    font-size: 0.68vw;
 }
-#Text{
-border: none;
-outline: none;
+
+#div-existing-notes  div{
+    margin-right: 20px;
 }
+
+#date-for-small-note{
+    font-size: 1vw;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#create_note_image {
+    margin-right: 10px;
+    height: 34px;
+    width: 34px;
+}
+
+#logo{
+    height: 34px;
+    margin-left: 10px;
+}
+
+#delete-bin-image{
+    float: right;
+    margin-top: 25px;
+    margin-right: 25px;
+    width: 35px;
+}
+
+#date-for-small-note{
+    font-size: 0.68vw;
+}
+
+.text{
+    font-size: 0.68vw;
+    max-width: 40ch;
+    word-break: break-all;
+}
+
+#A4-Blatt{
+    margin-left: 20vh;
+    margin-right: 20vh;
+}
+
+#title-area{
+    margin-bottom: 0px;
+    height: 3.5vh;
+}
+
+p[contenteditable]:empty::before {
+    content: "Gebe der Notiz einen Text"; 
+    color: #aaa; 
+    pointer-events: none; 
+}
+
+h2[contenteditable]:empty::before {
+    content: "Gebe der Notiz einen Titel"; 
+    color: #aaa; 
+    pointer-events: none; 
+}
+
+h2[contenteditable]:focus::before {
+    content: ""; 
+}
+
+p[contenteditable]:focus::before {
+    content: ""; 
+}
+
+p:empty::before {
+    content: "Gebe der Notiz einen Text"; 
+    color: #aaa; 
+    pointer-events: none; 
+}
+
+h2:empty::before {
+    content: "Gebe der Notiz einen Titel"; 
+    color: #aaa; 
+    pointer-events: none; 
+}
+
+h2:focus::before {
+    content: ""; 
+}
+
+p:focus::before {
+    content: ""; 
+}
+
+#retract-button{
+    position: relative;
+    right: 0;
+    left: 95%;
+    top: 15vh;
+    width: 34px;
+    height: 34px;
+    z-index: 100;
+}
+
+#retract-div{
+    margin: 0px;
+    padding: 0px;
+    width: 1px;
+    overflow: visible;
+    overflow-y: visible;
+    align-items: left;
+    align-content: left;
+    z-index: 1000;
+}
+
+@keyframes retract {
+    0% { width: 18%; }
+    100% { width: 0%; }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(180deg); }
+}
+
+@keyframes rotate2 {
+    0% { transform: rotate(180deg); }
+    100% { transform: rotate(0); }
+}
+
+@keyframes grow {
+    0% { width: 0%; }
+    100% { width: 18%; }
+}
+
+.rotate {
+    animation: rotate 3s forwards;
+}
+
+.rotate2 {
+    animation: rotate2 3s forwards;
+}
+
+.shrink {
+    animation: retract 3s forwards;
+  }
+
+.grow {
+    animation: grow 3s forwards;
+}
+
+
+
+
 

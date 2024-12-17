@@ -3,8 +3,22 @@ const SIMPLE_NOTES_STORAGE_KEY = "simpleNotes";
 const controller = (() => {
   let noteIds = [];
   let ausgewählt = [];
+  datum = new Date()
 
-  function createNote({ noteId, title, text }) {
+  const tage = [
+    "Sonntag", "Montag", "Dienstag", "Mittwoch",
+    "Donnerstag", "Freitag", "Samstag"
+  ];
+
+  const monate = [
+    "Januar", "Februar", "März", "April", "Mai", "Juni",
+    "Juli", "August", "September", "Oktober", "November", "Dezember"
+  ];
+
+  const noteId = new Date().getTime().toString();
+
+
+  function createNote({ noteId, title, text, DateOfCreation }) {
     const existingNotes = document.getElementById("div-existing-notes");
     const existingNoteTemplate = document.getElementById(
       "existing-note-template"
@@ -16,17 +30,13 @@ const controller = (() => {
     newNode.setAttribute("id", elementId);
     existingNotes.appendChild(newNode);
 
-    document.querySelector(`#${elementId} #existing-note-title`).innerText =
-      title;
-    document.querySelector(`#${elementId} #existing-note-text`).innerText =
-      text;
-    document
-      .querySelector(`#${elementId} #existing-note-title`)
-      .setAttribute("id", `existing-note-title-${noteId}`);
-    document
-      .querySelector(`#${elementId} #existing-note-text`)
-      .setAttribute("id", `existing-note-text-${noteId}`);
+    document.querySelector(`#${elementId} #existing-note-title`).innerText = title;
+    document.querySelector(`#${elementId} #existing-note-text`).innerText = text;
+    document.querySelector(`#${elementId} #date-for-small-note`).innerText = DateOfCreation
+    document.querySelector(`#${elementId} #existing-note-title`).setAttribute("id", `existing-note-title-${noteId}`);
+    document.querySelector(`#${elementId} #existing-note-text`).setAttribute("id", `existing-note-text-${noteId}`);
     document.querySelector(`#${elementId}`).setAttribute("noteId", `${noteId}`);
+    // document.querySelector(`#${elementId}`).setAttribute("time_of_creation", `${datum}`)
     newNode.setAttribute("onclick", `controller.divClicked(${noteId})`);
   }
 
@@ -40,14 +50,22 @@ const controller = (() => {
   function deleteNoteFromLocalStorage(id) {
     let notes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY));
 
-    const foundIndexOfLocalstorage = notes.findIndex(
-      (notes) => notes.noteId === id
-    );
+    const foundIndexOfLocalstorage = notes.findIndex((notes) => notes.noteId === id);
     const foundIndexOfIdList = noteIds.indexOf(id);
 
     notes.splice(foundIndexOfLocalstorage, 1);
     localStorage.setItem(SIMPLE_NOTES_STORAGE_KEY, JSON.stringify(notes));
     noteIds.splice(foundIndexOfIdList, 1);
+  }
+
+  function deleteNoteNew(){
+    noteToDelete = document.querySelector('[selected]')
+
+  let noteId = noteToDelete.getAttribute('noteid')
+
+    deleteNote(noteId)
+
+    location.reload();
   }
 
   function exportNotesAsJSON() {
@@ -107,9 +125,11 @@ const controller = (() => {
     selectorHandler(noteId);
   }
 
+
+
   function saveNote() {
-    const titleToSave = document.getElementById(`Title`).value;
-    const textToSave = document.getElementById(`Text`).value;
+    const titleToSave = document.getElementById(`title-area`).innerText;
+    const textToSave = document.getElementById(`text-area`).innerText;
 
     const noteToSave = document.querySelector(`[selected]`);
     const noteIdToSaveTo = noteToSave.getAttribute("noteid");
@@ -124,9 +144,7 @@ const controller = (() => {
       }
     });
 
-    localStorage.setItem(
-      SIMPLE_NOTES_STORAGE_KEY,
-      JSON.stringify(parsedLocalstorgeObjects)
+    localStorage.setItem(SIMPLE_NOTES_STORAGE_KEY, JSON.stringify(parsedLocalstorgeObjects)
     );
 
     location.reload();
@@ -207,9 +225,16 @@ const controller = (() => {
     title = "";
     text = "";
 
-    const noteId = new Date().getTime().toString();
 
-    addNoteToLocalStorage({ noteId, title, text });
+    const tagZahl = datum.getDate();
+    const monatName = monate[datum.getMonth()];
+    const jahr = datum.getFullYear();
+
+
+    DateOfCreation = `${tagZahl + ". " + monatName + " " + jahr}`
+
+
+    addNoteToLocalStorage({ noteId, title, text, DateOfCreation });
     loadNotes();
     divClicked(noteId);
   }
@@ -282,7 +307,17 @@ const controller = (() => {
     }
   }
 
+  function retract(){
+    console.log("Whats up man")
+  }
+
   function deleteNote(noteId) {
+    if (!noteId) {
+      noteId = document.querySelector()
+    }
+
+
+
     deleteNoteFromLocalStorage(noteId);
     loadNotes();
   }
@@ -301,30 +336,58 @@ const controller = (() => {
 
   function displayNote(noteId) {
     const allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
-    
+
 
     allNotes.forEach(note => {
       if (note.noteId == noteId) {
         const noteToDisplay = note
 
-        document.getElementById("Title").innerText = noteToDisplay.title;
-      document.getElementById("Text").innerText = noteToDisplay.text;
+        document.getElementById("title-area").innerText = noteToDisplay.title;
+        document.getElementById("text-area").innerText = noteToDisplay.text;
+        document.getElementById('date-on-note-display').innerText = noteToDisplay.DateOfCreation
       }
-      
+
     });
 
     document.addEventListener("DOMContentLoaded", () => {
       // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
-    });
-
-    // Setze Titel und Text in die Eingabefelder
-    
+    }); 
   }
+  document.addEventListener("DOMContentLoaded", () => {
+    const startButton = document.getElementById('retract-button');
+    const animatedBox = document.getElementById('flex-for-toolbox-and-notesbar');
+    const animatedButton = document.getElementById('retract-button');
+  
+    let isShrunk = false;
+  
+    startButton.addEventListener("click", () => {
+
+      animatedBox.classList.remove("shrink", "grow");
+      animatedButton.classList.remove("rotate", "rotate2");
+
+      if (!isShrunk) {
+        animatedBox.classList.add("shrink");
+        animatedButton.classList.add("rotate");
+      } else {
+        animatedBox.classList.add("grow");
+        animatedButton.classList.add("rotate2");
+      }
+  
+      isShrunk = !isShrunk;
+    });
+  });
+  
+
+  
+
+
 
   return {
     addNote,
     saveNote,
+    retract,
     deleteNote,
+    deleteNoteNew,
     loadNotes,
     exportNotesAsJSON,
     importNotesAsJSON,
