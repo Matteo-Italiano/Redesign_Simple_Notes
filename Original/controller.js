@@ -5,18 +5,12 @@ const controller = (() => {
   let ausgewählt = [];
   datum = new Date()
 
-  const tage = [
-    "Sonntag", "Montag", "Dienstag", "Mittwoch",
-    "Donnerstag", "Freitag", "Samstag"
-  ];
-
   const monate = [
-    "Januar", "Februar", "März", "April", "Mai", "Juni",
-    "Juli", "August", "September", "Oktober", "November", "Dezember"
+    "Jan", "Feb", "Mär", "Apr", "Mai", "Jun",
+    "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"
   ];
 
   const noteId = new Date().getTime().toString();
-
 
   function createNote({ noteId, title, text, DateOfCreation }) {
     const existingNotes = document.getElementById("div-existing-notes");
@@ -33,11 +27,13 @@ const controller = (() => {
     document.querySelector(`#${elementId} #existing-note-title`).innerText = title;
     document.querySelector(`#${elementId} #existing-note-text`).innerText = text;
     document.querySelector(`#${elementId} #date-for-small-note`).innerText = DateOfCreation
+    document.querySelector(`#${elementId}`).removeAttribute('selected')
     document.querySelector(`#${elementId} #existing-note-title`).setAttribute("id", `existing-note-title-${noteId}`);
     document.querySelector(`#${elementId} #existing-note-text`).setAttribute("id", `existing-note-text-${noteId}`);
     document.querySelector(`#${elementId}`).setAttribute("noteId", `${noteId}`);
-    // document.querySelector(`#${elementId}`).setAttribute("time_of_creation", `${datum}`)
     newNode.setAttribute("onclick", `controller.divClicked(${noteId})`);
+
+    // Closed Function
   }
 
   function addNoteToLocalStorage(note) {
@@ -68,46 +64,8 @@ const controller = (() => {
     location.reload();
   }
 
-  function exportNotesAsJSON() {
-    notesAsObjectString = [];
-
-    returnselectedNotesArray();
-
-    allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY));
-
-    selectedNotesArray.forEach((noteId) => {
-      allNotes.forEach((element) => {
-        if (noteId == element.noteId) {
-          notesAsObjectString.push(JSON.stringify(element));
-        }
-      });
-    });
-
-    if (notesAsObjectString == "[]") {
-      let isConfirmed = confirm(
-        "No Notes, are you sure that you want to download an empty file?"
-      );
-      if (isConfirmed) {
-        let downloadBtn = document.getElementById("download");
-        let notesasJSON = notesAsObjectString;
-        let jsonFile = new Blob([notesasJSON], { type: "application/json" });
-
-        downloadBtn.href = URL.createObjectURL(jsonFile);
-        downloadBtn.download = "JSON.json";
-      }
-    } else {
-      let downloadBtn = document.getElementById("downloadHyperlink");
-      let notesAsJSON = notesAsObjectString;
-      let jsonFile = new Blob([notesAsJSON], { type: "application/json" });
-
-      downloadBtn.href = URL.createObjectURL(jsonFile);
-      downloadBtn.download = "JSON.json";
-    }
-  }
-
   function divClicked(noteId) {
-    // const checkbox = document.getElementById(`existing-note-checkbox-${noteId}`);
-    // checkbox.checked = !checkbox.checked;
+
     document.addEventListener("DOMContentLoaded", () => {
       // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
     });
@@ -125,14 +83,26 @@ const controller = (() => {
     selectorHandler(noteId);
   }
 
-
-
   function saveNote() {
-    const titleToSave = document.getElementById(`title-area`).innerText;
-    const textToSave = document.getElementById(`text-area`).innerText;
+    const title = document.getElementById(`title-area`).innerText;
+    const text = document.getElementById(`text-area`).innerText;
 
     const noteToSave = document.querySelector(`[selected]`);
     const noteIdToSaveTo = noteToSave.getAttribute("noteid");
+
+    if (noteIdToSaveTo.toString() == "000000"){
+      const noteId = new Date().getTime().toString();
+
+      const tagZahl = datum.getDate();
+      const monatName = monate[datum.getMonth()];
+      const jahr = datum.getFullYear();
+
+      DateOfCreation = `${ monatName + " " + tagZahl + ", " + jahr}` 
+
+
+      addNoteToLocalStorage({noteId, title, text, DateOfCreation})
+      createNote({noteId, title, text, DateOfCreation})
+    }
 
     let parsedLocalstorgeObjects = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)
     );
@@ -175,46 +145,6 @@ const controller = (() => {
     }
   }
 
-  function importNotesAsJSON() {
-    const reader = new FileReader();
-    let parsedArray;
-
-    reader.onload = (evt) => {
-      parsedArray = JSON.parse(evt.target.result);
-      createImport(parsedArray);
-    };
-    reader.readAsText(document.getElementById("input").files[0]);
-
-    function createImport(parsedArray) {
-      parsedArray.forEach((object) => {
-        checkIfNoteIdIsIncluded(object);
-
-        function checkIfNoteIdIsIncluded(object) {
-          let notes = JSON.parse(
-            localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)
-          );
-
-          for (let i = 0; i <= notes.length; i++) {
-            if (noteIds.length == 0) {
-              createIdNote(object);
-            }
-            if (noteIds.includes(object.noteId)) {
-              // does not create the note
-            } else createIdNote(object);
-          }
-        }
-      });
-    }
-  }
-
-  function getFileExtension() {
-    if (document.getElementById("input").files[0]) {
-      importNotesAsJSON();
-    } else {
-      alert("Bro, are you good? There aren't any notes to import XD");
-    }
-  }
-
   function createIdNote(object) {
     createNote(object);
     addNoteToLocalStorage(object);
@@ -222,19 +152,13 @@ const controller = (() => {
   }
 
   function addNote() {
-    title = "";
-    text = "";
-
-
     const tagZahl = datum.getDate();
     const monatName = monate[datum.getMonth()];
     const jahr = datum.getFullYear();
 
+    DateOfCreation = `${ monatName + " " + tagZahl + ", " + jahr}`
 
-    DateOfCreation = `${tagZahl + ". " + monatName + " " + jahr}`
-
-
-    addNoteToLocalStorage({ noteId, title, text, DateOfCreation });
+    addNoteToLocalStorage({ noteIdForAddNote, title, text, DateOfCreation });
     loadNotes();
     divClicked(noteId);
   }
@@ -264,61 +188,10 @@ const controller = (() => {
     selectCheckbox();
   }
 
-  function returnselectedNotesArray() {
-    const checkboxes = document.querySelectorAll(".checkbox:checked");
-    selectedNotesArray = [];
-
-    checkboxes.forEach((checkbox) => {
-      selectedNotesArray.push(checkbox.defaultValue);
-    });
-
-    return selectedNotesArray;
-  }
-
-  function selectCheckbox() {
-    const checkedBoxes = [];
-    const uncheckedBoxes = [];
-    const allCheckboxes = document.querySelectorAll(".checkbox");
-
-    allCheckboxes.forEach((element) => {
-      if (element.checked) {
-        checkedBoxes.push(element);
-      } else {
-        uncheckedBoxes.push(element);
-      }
-    });
-
-    const selectAllButton = document.getElementById("select-all");
-
-    if (selectAllButton.innerText === "Select all") {
-      uncheckedBoxes.forEach((element) => {
-        element.checked = true;
-        const noteId = element.value;
-        setBorder(noteId);
-      });
-      selectAllButton.innerText = "Deselect all";
-    } else {
-      checkedBoxes.forEach((element) => {
-        element.checked = false;
-        const noteId = element.value;
-        setBorder(noteId);
-      });
-      selectAllButton.innerText = "Select all";
-    }
-  }
-
-  function retract(){
-    
-  }
-
-  
-
   function deleteNote(noteId) {
     if (!noteId) {
       noteId = document.querySelector()
     }
-
-
 
     deleteNoteFromLocalStorage(noteId);
     loadNotes();
@@ -343,7 +216,7 @@ const controller = (() => {
       const monatName = monate[datum.getMonth()];
       const jahr = datum.getFullYear();
 
-      document.getElementById('date-on-note-display').innerText = `${tagZahl + ". " + monatName + " " + jahr}`
+      document.getElementById('date-on-note-display').innerText = `${monatName + " " +tagZahl + ", " + jahr}`
     } else {
       const allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
 
@@ -356,16 +229,12 @@ const controller = (() => {
           document.getElementById("text-area").innerText = noteToDisplay.text;
           document.getElementById('date-on-note-display').innerText = noteToDisplay.DateOfCreation
         }
-  
       });
   
       document.addEventListener("DOMContentLoaded", () => {
         // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
       }); 
     }
-
-
-    
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -391,24 +260,35 @@ const controller = (() => {
       isShrunk = !isShrunk;
     });
   });
-  
 
-  
+  function searchbar(){
+    const searchbar = document.getElementById('search_bar')
 
+    searchbar.addEventListener("input", (e) =>{
+      const value = e.target.value
 
+      JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)).forEach(Object => {
+        if (Object.title.toLowerCase().includes(value.toLowerCase())){
+          // Show
+        } else if (Object.text.toLowerCase().includes(value.toLowerCase())){
+          // Show
+        } else if (Object.DateOfCreation.toLowerCase().includes(value.toLowerCase())){
+          // Show
+        } else {
+          document.getElementById(`existing-node-${Object.noteId}`).setAttribute("hidden", "true")
+        }
+      });
+    })
+  }
 
   return {
     addNote,
     saveNote,
-    retract,
+    searchbar,
     deleteNote,
     deleteNoteNew,
     loadNotes,
-    exportNotesAsJSON,
-    importNotesAsJSON,
     deleteSelected,
-    selectCheckbox,
-    getFileExtension,
     divClicked,
     displayNote,
   };

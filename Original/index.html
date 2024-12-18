@@ -28,10 +28,11 @@
           </div>
 
           <div class="search_bar_class">
-            <input id="search_bar" type="text" placeholder="Search">
+            <img id="search_bar_logo" src="/Img/Search.png" alt="">
+            <input id="search_bar" type="text" onchange="controller.searchbar()" value="" placeholder="Search">
           </div>
 
-          <div name="create_note">
+          <div id="create_note_div">
             <img id="create_note_image" src="/Img/n-edit 1.png" alt="create_note" onclick="controller.addNote()">
           </div>
         </div>

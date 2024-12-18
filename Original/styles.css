@@ -17,7 +17,6 @@ body {
     color: white;
     margin: 0px;
     padding: 0px;
-    overflow-x: hidden;
     width: 100%;
 }
 
@@ -84,7 +83,7 @@ h2 {
 #note-display{
     background-color: rgb(251, 251, 251);
     color: black;
-    height: 100vh;
+
     width: 80%;
     margin: 0px;
     padding:0px;
@@ -148,7 +147,7 @@ h2 {
     overflow: hidden;
     overflow-wrap: break-word;
     width: 90%;
-    height: 10vh;
+    height: auto;
 border: none;
 outline: none;
 }
@@ -158,7 +157,7 @@ outline: none;
     overflow: hidden;
     overflow-wrap: break-word;
     width: 90%;
-    height: 50vh;
+    height: 100%;
     margin-top: 90px;
     margin-bottom: 10px;
 border: none;
@@ -167,21 +166,29 @@ outline: none;
 }
 
 .search_bar_class{
-    justify-content: center;
-    align-items: center;
-    align-self: center;
     padding-left: 10px;
-    padding-right: 10px;
-    margin-bottom: 20px;
+    padding-right: 10px; 
     width: 100%;
 }
 
+#search_bar_logo{
+    z-index: 0;
+    position: relative;
+    top: 35px;
+    right: 2px;
+}
+
 #search_bar{
+    z-index: 2;
     border-radius:5px;
-    border: none;
-    outline: none;
     width: 100%;
     height: 34px;
+    position: relative;
+    bottom: 48px;
+    left: 23px;
+
+    border: none;
+    outline: none;
 }
 
 #date-on-note-display{
@@ -198,8 +205,13 @@ outline: none;
     font-family: 'Courier New', Courier, monospace;
 }
 
+#create_note_div{
+    margin: 10px;
+}
+
 #create_note_image {
     margin-right: 10px;
+    margin-left: 10px;
     height: 34px;
     width: 34px;
 }
@@ -233,7 +245,7 @@ outline: none;
 
 #title-area{
     margin-bottom: 0px;
-    height: 3.5vh;
+    height: auto;
 }
 
 p[contenteditable]:empty::before {
@@ -299,7 +311,7 @@ p:focus::before {
 
 @keyframes retract {
     0% { width: 18%; }
-    100% { width: 0%; }
+    100% { width: 0.5%; }
 }
 
 @keyframes rotate {
@@ -313,7 +325,7 @@ p:focus::before {
 }
 
 @keyframes grow {
-    0% { width: 0%; }
+    0% { width: 0.5%; }
     100% { width: 18%; }
 }
 
@@ -335,6 +347,11 @@ p:focus::before {
 
 #div-for-retract{
     height: 0px;
+}
+
+#A4-Blatt{
+    display: flex;
+    flex-direction: column;
 }
 
 

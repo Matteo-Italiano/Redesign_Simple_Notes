@@ -40,3 +40,124 @@ function changeSelectorName(noteId) {
     element.value = "";
     return value;
   }
+
+  
+  function exportNotesAsJSON() {
+    notesAsObjectString = [];
+
+    returnselectedNotesArray();
+
+    allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY));
+
+    selectedNotesArray.forEach((noteId) => {
+      allNotes.forEach((element) => {
+        if (noteId == element.noteId) {
+          notesAsObjectString.push(JSON.stringify(element));
+        }
+      });
+    });
+
+    if (notesAsObjectString == "[]") {
+      let isConfirmed = confirm(
+        "No Notes, are you sure that you want to download an empty file?"
+      );
+      if (isConfirmed) {
+        let downloadBtn = document.getElementById("download");
+        let notesasJSON = notesAsObjectString;
+        let jsonFile = new Blob([notesasJSON], { type: "application/json" });
+
+        downloadBtn.href = URL.createObjectURL(jsonFile);
+        downloadBtn.download = "JSON.json";
+      }
+    } else {
+      let downloadBtn = document.getElementById("downloadHyperlink");
+      let notesAsJSON = notesAsObjectString;
+      let jsonFile = new Blob([notesAsJSON], { type: "application/json" });
+
+      downloadBtn.href = URL.createObjectURL(jsonFile);
+      downloadBtn.download = "JSON.json";
+    }
+  }
+
+  function importNotesAsJSON() {
+    const reader = new FileReader();
+    let parsedArray;
+
+    reader.onload = (evt) => {
+      parsedArray = JSON.parse(evt.target.result);
+      createImport(parsedArray);
+    };
+    reader.readAsText(document.getElementById("input").files[0]);
+
+    function createImport(parsedArray) {
+      parsedArray.forEach((object) => {
+        checkIfNoteIdIsIncluded(object);
+
+        function checkIfNoteIdIsIncluded(object) {
+          let notes = JSON.parse(
+            localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)
+          );
+
+          for (let i = 0; i <= notes.length; i++) {
+            if (noteIds.length == 0) {
+              createIdNote(object);
+            }
+            if (noteIds.includes(object.noteId)) {
+              // does not create the note
+            } else createIdNote(object);
+          }
+        }
+      });
+    }
+  }
+
+  function getFileExtension() {
+    if (document.getElementById("input").files[0]) {
+      importNotesAsJSON();
+    } else {
+      alert("Bro, are you good? There aren't any notes to import XD");
+    }
+  }
+
+  function returnselectedNotesArray() {
+    const checkboxes = document.querySelectorAll(".checkbox:checked");
+    selectedNotesArray = [];
+
+    checkboxes.forEach((checkbox) => {
+      selectedNotesArray.push(checkbox.defaultValue);
+    });
+
+    return selectedNotesArray;
+  }
+
+  function selectCheckbox() {
+    const checkedBoxes = [];
+    const uncheckedBoxes = [];
+    const allCheckboxes = document.querySelectorAll(".checkbox");
+
+    allCheckboxes.forEach((element) => {
+      if (element.checked) {
+        checkedBoxes.push(element);
+      } else {
+        uncheckedBoxes.push(element);
+      }
+    });
+
+    const selectAllButton = document.getElementById("select-all");
+
+    if (selectAllButton.innerText === "Select all") {
+      uncheckedBoxes.forEach((element) => {
+        element.checked = true;
+        const noteId = element.value;
+        setBorder(noteId);
+      });
+      selectAllButton.innerText = "Deselect all";
+    } else {
+      checkedBoxes.forEach((element) => {
+        element.checked = false;
+        const noteId = element.value;
+        setBorder(noteId);
+      });
+      selectAllButton.innerText = "Select all";
+    }
+  }
