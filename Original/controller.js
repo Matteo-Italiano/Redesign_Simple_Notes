@@ -308,8 +308,10 @@ const controller = (() => {
   }
 
   function retract(){
-    console.log("Whats up man")
+    
   }
+
+  
 
   function deleteNote(noteId) {
     if (!noteId) {
@@ -332,27 +334,40 @@ const controller = (() => {
 
     const notes = JSON.parse(notesString);
     notes.forEach(createNote);
+    displayNote();
   }
 
   function displayNote(noteId) {
-    const allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
+    if (noteId == undefined){
+      const tagZahl = datum.getDate();
+      const monatName = monate[datum.getMonth()];
+      const jahr = datum.getFullYear();
+
+      document.getElementById('date-on-note-display').innerText = `${tagZahl + ". " + monatName + " " + jahr}`
+    } else {
+      const allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
 
 
-    allNotes.forEach(note => {
-      if (note.noteId == noteId) {
-        const noteToDisplay = note
+      allNotes.forEach(note => {
+        if (note.noteId == noteId) {
+          const noteToDisplay = note
+  
+          document.getElementById("title-area").innerText = noteToDisplay.title;
+          document.getElementById("text-area").innerText = noteToDisplay.text;
+          document.getElementById('date-on-note-display').innerText = noteToDisplay.DateOfCreation
+        }
+  
+      });
+  
+      document.addEventListener("DOMContentLoaded", () => {
+        // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
+      }); 
+    }
 
-        document.getElementById("title-area").innerText = noteToDisplay.title;
-        document.getElementById("text-area").innerText = noteToDisplay.text;
-        document.getElementById('date-on-note-display').innerText = noteToDisplay.DateOfCreation
-      }
 
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
-    }); 
+    
   }
+
   document.addEventListener("DOMContentLoaded", () => {
     const startButton = document.getElementById('retract-button');
     const animatedBox = document.getElementById('flex-for-toolbox-and-notesbar');
