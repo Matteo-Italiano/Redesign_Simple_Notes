@@ -333,12 +333,8 @@ p:focus::before {
     animation: grow 3s forwards;
 }
 
-#logo, #create_note_image {
-    margin-bottom: 20px;
-}
-
-#search_bar{
-    margin-bottom: 40px;
+#div-for-retract{
+    height: 0px;
 }
 
 
