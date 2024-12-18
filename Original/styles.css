@@ -189,7 +189,8 @@ outline: none;
 }
 
 #div-existing-notes  div{
-    margin-right: 20px;
+    margin-right: 16px;
+    margin-left: 16px;
 }
 
 #date-for-small-note{
@@ -331,6 +332,15 @@ p:focus::before {
 .grow {
     animation: grow 3s forwards;
 }
+
+#logo, #create_note_image {
+    margin-bottom: 20px;
+}
+
+#search_bar{
+    margin-bottom: 40px;
+}
+
 
 
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markierten Text erfassen</title>
+</head>
+<body>
+    <h1>Markierten Text anzeigen</h1>
+    <p>Markiere einen beliebigen Text auf dieser Seite, um ihn zu erfassen.</p>
+    <p>Du kannst diesen Text hier markieren oder ein anderes Element auswählen.</p>
+    <div id="output" style="margin-top: 20px; font-weight: bold; color: blue;"></div>
+
+    <script>
+        // Event-Listener für Textauswahl
+        document.addEventListener("mouseup", () => {
+            const selection = window.getSelection().toString().trim(); // Markierten Text holen
+            const output = document.getElementById("output");
+
+            if (selection) {
+                output.textContent = `Du hast markiert: "${selection}"`;
+            } else {
+                output.textContent = "";
+            }
+        });
+    </script>
+</body>
+</html>
