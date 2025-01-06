@@ -66,7 +66,7 @@ h2 {
 }
 
 .notes-container:last-child {
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 .notes-container:hover {
@@ -80,7 +80,7 @@ h2 {
     float: left;
 }
 
-#note-display{
+.main_content{
     position: absolute;
     background-color: rgb(251, 251, 251);
     top: 0;
@@ -89,64 +89,87 @@ h2 {
     width: 80%;
     margin: 0px;
     padding:0px;
+    justify-content: center;
+    min-height: 100vh;
 }
 
-#notes-bar{
+.notes-bar{
     position: relative;
     background-color: rgb(255, 255, 255);
     color: black;
-    height: 90vh;
+    height: 100vh;
     width: 100%;
-    margin-bottom: 20px;
     overflow: hidden;
     overflow-y: scroll;
 }
 
-.flex-container{
+.container{
     display: flex;
     right: 0;
     top: 0;
 }
 
-.flex-container > div {
-    padding: 20px;
+.container > div {
     font-size: 2.3vw;
 }
 
-#flex-for-toolbox-and-notesbar{
+.sidebar{
     display: flex;
     position: fixed;
     top: 0;
     left: 0;
     flex-direction: column;
     margin: 0px;
-    padding: 0px;
-    width: 18%;
-}
-
-#div-for-toolbox{
-    background-color: rgb(255, 255, 255);
-    height: 90vh;
+    padding: 0px 0px 0px 0px;
     width: 20%;
-    margin-bottom: 20px;
-    overflow: hidden;
 }
 
-#toolbox{
+.toolbox{
     background-color: #F2F2F2;
     justify-content: space-between;
     align-items: center;
     align-self: center;
-    padding-top: 10px;
     display: inline-flex;
     width: 100%;
 }
 
-#logo-for-toolbox{
-    align-self: left;
-    justify-self: left;
-    
+.logo{
+    height: 100%;
 }
+
+#logo{
+    justify-self: left;
+    height: 34px;
+    width: 34px;
+    margin-left: 10px;
+}
+
+.search-bar{
+    width: 80%;
+    height: 100%;
+}
+
+#search-bar{
+    justify-self: center;
+    border-radius:5px;
+    width: 100%;
+    height: 34px;
+    position: relative;
+    border: none;
+    outline: none;
+    padding: 0px;
+    transform: translate(0%, -35%);
+}
+
+.create-note{
+    height: 100%;
+}
+
+#create-note-image {
+    height: 34px;
+    width: 34px;
+}
+
 
 #title-area{
     font-size: 1.35vw;
@@ -172,25 +195,7 @@ outline: none;
     
 }
 
-.search_bar_class{
-    padding-left: 10px;
-    padding-right: 10px; 
-    width: 100%;
-}
-
-#search_bar{ 
-    margin-top: 50px;
-    border-radius:5px;
-    width: 100%;
-    height: 34px;
-    position: relative;
-    bottom: 48px;
-    left: 23px;
-    border: none;
-    outline: none;
-}
-
-#date-on-note-display{
+#date-on-main-content{
     font-size: 0.68vw;
 }
 
@@ -204,21 +209,8 @@ outline: none;
     font-family: 'Courier New', Courier, monospace;
 }
 
-#create_note_div{
-    margin: 10px;
-}
 
-#create_note_image {
-    margin-right: 10px;
-    margin-left: 10px;
-    height: 34px;
-    width: 34px;
-}
 
-#logo{
-    height: 34px;
-    margin-left: 10px;
-}
 
 #delete-bin-image{
     float: right;
@@ -237,17 +229,22 @@ outline: none;
     word-break: break-all;
 }
 
-#A4-Blatt{
-    margin-left: 40vh;
+.A4-Blatt{
+    width: 800px;
+    min-height: 90vh;
     position: relative;
     top: 0;
     right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
 }
 
 #title-area{
     margin-bottom: 0px;
     height: auto;
 }
+
 
 p[contenteditable]:empty::before {
     content: "Gebe der Notiz einen Text"; 
@@ -289,25 +286,6 @@ p:focus::before {
     content: ""; 
 }
 
-#retract-button{
-    position: relative;
-    right: 0;
-    left: 95%;
-    top: 15vh;
-    width: 34px;
-    height: 34px;
-    z-index: 1;
-}
-
-#retract-div{
-    margin: 0px;
-    padding: 0px;
-    width: 1px;
-    overflow: visible;
-    overflow-y: visible;
-    align-items: left;
-    align-content: left;
-}
 
 @keyframes retract {
     0% { width: 18%; }
@@ -349,7 +327,10 @@ p:focus::before {
     height: 0px;
 }
 
-#A4-Blatt{
-    display: flex;
-    flex-direction: column;
+.vertical-line{
+    z-index: 2;
+    margin-left: 10px;
+    width: 1px;
+    background-color: black;
+    height: 100vh;
 }

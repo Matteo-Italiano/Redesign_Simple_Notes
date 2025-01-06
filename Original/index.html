@@ -14,13 +14,10 @@
   </head>
 
   <body>
-
-    <div class="flex-container">
       
-      <div id="flex-for-toolbox-and-notesbar">
-        <div id="div-for-retract">
-          <img id="retract-button" onclick="controller.retract()" src="/Img/Button 01.png" alt="" >
-        </div>
+    <div class="container"> 
+    
+      <div class="sidebar" id="flex-for-toolbox-and-notesbar">
 
         <div id="toolbox">
           <div id="logo-for-toolbox">
@@ -28,7 +25,6 @@
           </div>
 
           <div class="search_bar_class">
-            <img id="search_bar_logo" src="/Img/Search.png" alt="">
             <input id="search_bar" type="text" onchange="controller.searchbar()" value="" placeholder="Search">
           </div>
 
@@ -42,19 +38,14 @@
           <div id="div-existing-notes">
             <!----Hier sind alle Notes-->
           </div>
-          <!--<img id="retract-button" onclick="controller.retract()" src="/Img/Button 01.png" alt="" >-->
         </div>
 
       </div>
-
-      
 
     <div id="note-display">
       <img id="delete-bin-image" onclick="controller.deleteNoteNew()" src="/Img/bin 1.png" alt="">
       
       <div name="A4-Blatt" id="A4-Blatt">
-        
-
         <div id="title-area-div">
           <h2 class="note-display" id="title-area" contenteditable="true"></h2>  
         </div>
@@ -66,13 +57,17 @@
         <div>
           <p class="note-display" id="text-area" contenteditable="true"></p>
         </div>
-
       </div>
 
       <button id="save_button" onclick="controller.saveNote()" style="background-color:rgb(255, 98, 0)">save</button>
     </div>
-    
-    
+
+
+
+
+
+
+
 
 
       

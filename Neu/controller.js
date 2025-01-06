@@ -228,7 +228,7 @@ const controller = (() => {
   function displayNote(noteId) {
     if (noteId == undefined){
 
-      document.getElementById('date-on-note-display').innerText = getNoteIdOrDate("Date")
+      document.getElementById('date-on-main-content').innerText = getNoteIdOrDate("Date")
     } else {
       const allNotes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
 
@@ -238,7 +238,7 @@ const controller = (() => {
   
           document.getElementById("title-area").innerText = noteToDisplay.title;
           document.getElementById("text-area").innerText = noteToDisplay.text;
-          document.getElementById('date-on-note-display').innerText = noteToDisplay.DateOfCreation
+          document.getElementById('date-on-main-content').innerText = noteToDisplay.DateOfCreation
         }
       });
   
@@ -248,29 +248,29 @@ const controller = (() => {
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const startButton = document.getElementById('retract-button');
-    const animatedBox = document.getElementById('flex-for-toolbox-and-notesbar');
-    const animatedButton = document.getElementById('retract-button');
-  
-    let isShrunk = false;
-  
-    startButton.addEventListener("click", () => {
-
-      animatedBox.classList.remove("shrink", "grow");
-      animatedButton.classList.remove("rotate", "rotate2");
-
-      if (!isShrunk) {
-        animatedBox.classList.add("shrink");
-        animatedButton.classList.add("rotate");
-      } else {
-        animatedBox.classList.add("grow");
-        animatedButton.classList.add("rotate2");
-      }
-  
-      isShrunk = !isShrunk;
-    });
-  });
+ // document.addEventListener("DOMContentLoaded", () => {
+ //   const startButton = document.getElementById('retract-button');
+ //   const animatedBox = document.getElementById('flex-for-toolbox-and-notesbar');
+ //   const animatedButton = document.getElementById('retract-button');
+ // 
+ //   let isShrunk = false;
+ // 
+ //   startButton.addEventListener("click", () => {
+//
+ //     animatedBox.classList.remove("shrink", "grow");
+ //     animatedButton.classList.remove("rotate", "rotate2");
+//
+ //     if (!isShrunk) {
+ //       animatedBox.classList.add("shrink");
+ //       animatedButton.classList.add("rotate");
+ //     } else {
+ //       animatedBox.classList.add("grow");
+ //       animatedButton.classList.add("rotate2");
+ //     }
+ // 
+ //     isShrunk = !isShrunk;
+ //   });
+ // });
 
   function searchbar(){
     const searchbar = document.getElementById('search_bar')
