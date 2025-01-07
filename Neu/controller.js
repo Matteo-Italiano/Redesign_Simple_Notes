@@ -255,11 +255,13 @@ const controller = (() => {
     const start_button = document.getElementById("start-button");
     const main_content = document.getElementById("main-content");
     const vertical_line = document.getElementById("vertical-line-container")
+    const vertical_line_container = document.getElementById('vertical-line')
 
     sidebar.removeAttribute("style",)
     start_button.removeAttribute("style", "shrinkTo80 3s forwards")
     main_content.removeAttribute("style", "shrinkTo80 3s forwards")
     vertical_line.removeAttribute("style", "goLeft 3s forwards")
+    vertical_line_container.removeAttribute('style', 'goLeft 3s forwards')
 
     start_button.addEventListener("click", () => {
       const status = start_button.getAttribute("status");
@@ -268,16 +270,18 @@ const controller = (() => {
         start_button.setAttribute("status", "Closed");
         sidebar.style.animation = "retract 3s forwards";
         start_button.style.animation = "rotate 3s forwards";
-        main_content.style.animation = "growTo100 3s forwards";
+        main_content.style.animation = "growTo100 2.5s forwards";
         vertical_line.style.animation = 'goLeft 3s forwards'
+        vertical_line_container.style.animation = 'goLeft 3s forwards'
 
 
       } else if (status === "Closed") {
         start_button.setAttribute("status", "Open");
         sidebar.style.animation = "grow 3s forwards";
         start_button.style.animation = "rotate2 3s forwards";
-        main_content.style.animation = "shrinkTo80 3s forwards";
+        main_content.style.animation = "shrinkTo80 3.5s forwards";
         vertical_line.style.animation = 'goRight 3s forwards'
+        vertical_line_container.style.animation = 'goRight 3s forwards'
       }
     });
 
@@ -285,20 +289,20 @@ const controller = (() => {
 
 
     function searchbar(Text){
-      let notes = []
-
-      notes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
-
-
-        const searchInput = document.getElementById("search-bar")
-        searchInput.addEventListener("input", e => {
-          const value = e.target.value
-          notes.forEach(notes => {
-            const isVisible = notes.title.includes(value) || notes.text.includes(value) || notes.DateOfCreation.includes(value)
-            notes.classList.toggle("hide", !isVisible)
-          })
-          
-          })
+     // let notes = []
+//
+     // notes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
+//
+//
+     //   const searchInput = document.getElementById("search-bar")
+     //   searchInput.addEventListener("input", e => {
+     //     const value = e.target.value
+     //     notes.forEach(notes => {
+     //       const isVisible = notes.title.includes(value) || notes.text.includes(value) || notes.DateOfCreation.includes(value)
+     //       notes.classList.toggle("hide", !isVisible)
+     //     })
+     //     
+     //     })
     }
 
 
