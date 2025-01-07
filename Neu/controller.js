@@ -248,9 +248,7 @@ const controller = (() => {
     }
   }
 
-
-
-
+  //Animation Handler
     document.addEventListener("DOMContentLoaded", () => {
       
     const sidebar = document.getElementById("sidebar");
@@ -285,33 +283,33 @@ const controller = (() => {
 
     });
 
-  
+
+    function searchbar(Text){
+      let notes = []
+
+      notes = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY))
 
 
-  function searchbar() {
-    const searchbar = document.getElementById('search_bar')
+        const searchInput = document.getElementById("search-bar")
+        searchInput.addEventListener("input", e => {
+          const value = e.target.value
+          notes.forEach(notes => {
+            const isVisible = notes.title.includes(value) || notes.text.includes(value) || notes.DateOfCreation.includes(value)
+            notes.classList.toggle("hide", !isVisible)
+          })
+          
+          })
+    }
 
-    searchbar.addEventListener("input", (e) => {
-      const value = e.target.value
 
-      JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)).forEach(Object => {
-        if (Object.title.toLowerCase().includes(value.toLowerCase())) {
-          // Show
-        } else if (Object.text.toLowerCase().includes(value.toLowerCase())) {
-          // Show
-        } else if (Object.DateOfCreation.toLowerCase().includes(value.toLowerCase())) {
-          // Show
-        } else {
-          document.getElementById(`existing-node-${Object.noteId}`).setAttribute("hidden", "true")
-        }
-      });
-    })
-  }
+
+
+
 
   return {
+    searchbar,
     addNote,
     saveNote,
-    searchbar,
     deleteNote,
     deleteNoteNew,
     loadNotes,
