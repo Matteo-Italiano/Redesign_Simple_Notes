@@ -3,11 +3,11 @@ const SIMPLE_NOTES_STORAGE_KEY = "simpleNotes";
 const controller = (() => {
   let noteIds = [];
   let ausgewählt = [];
-  
 
-  
 
-  function getNoteIdOrDate(DateOrNoteId, index){
+
+
+  function getNoteIdOrDate(DateOrNoteId, index) {
     datum = new Date()
 
     const monate = [
@@ -19,11 +19,11 @@ const controller = (() => {
     const monatName = monate[datum.getMonth()];
     const jahr = datum.getFullYear();
 
-    if (DateOrNoteId == "Date"){
-      DateOfToday = `${ monatName + " " + tagZahl + ", " + jahr}` 
+    if (DateOrNoteId == "Date") {
+      DateOfToday = `${monatName + " " + tagZahl + ", " + jahr}`
       return DateOfToday
 
-    } else if (DateOrNoteId == "Month"){
+    } else if (DateOrNoteId == "Month") {
       return monate[index]
     } else {
       const noteId = new Date().getTime().toString();
@@ -75,10 +75,10 @@ const controller = (() => {
     noteIds.splice(foundIndexOfIdList, 1);
   }
 
-  function deleteNoteNew(){
+  function deleteNoteNew() {
     noteToDelete = document.querySelector('[selected]')
 
-  let noteId = noteToDelete.getAttribute('noteid')
+    let noteId = noteToDelete.getAttribute('noteid')
 
     deleteNote(noteId)
 
@@ -112,13 +112,13 @@ const controller = (() => {
     const NotetoSave = document.querySelector(`[selected]`).getAttribute("noteid")
 
 
-    if (NotetoSave.toString() == "000000"){
-    
+    if (NotetoSave.toString() == "000000") {
+
       noteId = getNoteIdOrDate("ID")
       DateOfCreation = getNoteIdOrDate("Date")
 
-      addNoteToLocalStorage({noteId, title, text, DateOfCreation})
-      createNote({noteId, title, text, DateOfCreation})
+      addNoteToLocalStorage({ noteId, title, text, DateOfCreation })
+      createNote({ noteId, title, text, DateOfCreation })
     }
 
     let parsedLocalstorgeObjects = JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY));
@@ -226,7 +226,7 @@ const controller = (() => {
   }
 
   function displayNote(noteId) {
-    if (noteId == undefined){
+    if (noteId == undefined) {
 
       document.getElementById('date-on-main-content').innerText = getNoteIdOrDate("Date")
     } else {
@@ -235,55 +235,71 @@ const controller = (() => {
       allNotes.forEach(note => {
         if (note.noteId == noteId) {
           const noteToDisplay = note
-  
+
           document.getElementById("title-area").innerText = noteToDisplay.title;
           document.getElementById("text-area").innerText = noteToDisplay.text;
           document.getElementById('date-on-main-content').innerText = noteToDisplay.DateOfCreation
         }
       });
-  
+
       document.addEventListener("DOMContentLoaded", () => {
         // Ich abuse hier diesen Eventlistener um die Seite zu laden und dann kann ich die Farbe ändern
-      }); 
+      });
     }
   }
 
- // document.addEventListener("DOMContentLoaded", () => {
- //   const startButton = document.getElementById('retract-button');
- //   const animatedBox = document.getElementById('flex-for-toolbox-and-notesbar');
- //   const animatedButton = document.getElementById('retract-button');
- // 
- //   let isShrunk = false;
- // 
- //   startButton.addEventListener("click", () => {
-//
- //     animatedBox.classList.remove("shrink", "grow");
- //     animatedButton.classList.remove("rotate", "rotate2");
-//
- //     if (!isShrunk) {
- //       animatedBox.classList.add("shrink");
- //       animatedButton.classList.add("rotate");
- //     } else {
- //       animatedBox.classList.add("grow");
- //       animatedButton.classList.add("rotate2");
- //     }
- // 
- //     isShrunk = !isShrunk;
- //   });
- // });
 
-  function searchbar(){
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      
+    const sidebar = document.getElementById("sidebar");
+    const start_button = document.getElementById("start-button");
+    const main_content = document.getElementById("main-content");
+    const vertical_line = document.getElementById("vertical-line-container")
+
+    sidebar.removeAttribute("style",)
+    start_button.removeAttribute("style", "shrinkTo80 3s forwards")
+    main_content.removeAttribute("style", "shrinkTo80 3s forwards")
+    vertical_line.removeAttribute("style", "goLeft 3s forwards")
+
+    start_button.addEventListener("click", () => {
+      const status = start_button.getAttribute("status");
+
+      if (status === "Open") {
+        start_button.setAttribute("status", "Closed");
+        sidebar.style.animation = "retract 3s forwards";
+        start_button.style.animation = "rotate 3s forwards";
+        main_content.style.animation = "growTo100 3s forwards";
+        vertical_line.style.animation = 'goLeft 3s forwards'
+
+
+      } else if (status === "Closed") {
+        start_button.setAttribute("status", "Open");
+        sidebar.style.animation = "grow 3s forwards";
+        start_button.style.animation = "rotate2 3s forwards";
+        main_content.style.animation = "shrinkTo80 3s forwards";
+        vertical_line.style.animation = 'goRight 3s forwards'
+      }
+    });
+
+    });
+
+  
+
+
+  function searchbar() {
     const searchbar = document.getElementById('search_bar')
 
-    searchbar.addEventListener("input", (e) =>{
+    searchbar.addEventListener("input", (e) => {
       const value = e.target.value
 
       JSON.parse(localStorage.getItem(SIMPLE_NOTES_STORAGE_KEY)).forEach(Object => {
-        if (Object.title.toLowerCase().includes(value.toLowerCase())){
+        if (Object.title.toLowerCase().includes(value.toLowerCase())) {
           // Show
-        } else if (Object.text.toLowerCase().includes(value.toLowerCase())){
+        } else if (Object.text.toLowerCase().includes(value.toLowerCase())) {
           // Show
-        } else if (Object.DateOfCreation.toLowerCase().includes(value.toLowerCase())){
+        } else if (Object.DateOfCreation.toLowerCase().includes(value.toLowerCase())) {
           // Show
         } else {
           document.getElementById(`existing-node-${Object.noteId}`).setAttribute("hidden", "true")

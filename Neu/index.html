@@ -13,7 +13,7 @@
 <body>
     <div class="container">
 
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
 
             <div class="toolbox">
 
@@ -38,13 +38,18 @@
             </div>
         </div>
 
-        
+        <div id="vertical-line-container" class="vertical-line-container">
+            <div class="vertical-line"></div>
+            <img id="start-button" class="vertical-line-image" src="/Img/Button 01.png" alt="Vertikales Bild" status="Open" onclick="">
+        </div>
 
 
-        <div class="main_content">
+        <div id="main-content" class="main_content">
             <img id="delete-bin-image" onclick="controller.deleteNoteNew()" src="/Img/bin 1.png" alt="Delete Button">
 
+            
             <div class="A4-Blatt">
+                
                 <div id="title-area-div">
                     <h2 class="note-display" id="title-area" contenteditable="true"></h2>  
                 </div>
@@ -56,9 +61,9 @@
                 <div>
                     <p class="note-display" id="text-area" contenteditable="true"></p>
                 </div>
-            </div>
 
-            <button id="save-button" onclick="controller.saveNote()" style="background-color:rgb(255, 98, 0)">save</button>
+                <button id="save-button" onclick="controller.saveNote()" style="background-color:rgb(255, 98, 0)">save</button>
+            </div>
 
         </div>
     </div>
