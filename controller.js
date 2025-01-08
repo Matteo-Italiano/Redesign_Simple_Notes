@@ -256,6 +256,7 @@ const controller = (() => {
     const main_content = document.getElementById("main-content");
     const vertical_line = document.getElementById("vertical-line-container")
     const vertical_line_container = document.getElementById('vertical-line')
+    const searchbar = document.getElementById("search-bar")
 
     sidebar.removeAttribute("style",)
     start_button.removeAttribute("style", "shrinkTo80 3s forwards")
@@ -268,7 +269,7 @@ const controller = (() => {
 
       if (status === "Open") {
         start_button.setAttribute("status", "Closed");
-        sidebar.style.animation = "retract 3s forwards";
+        sidebar.style.animation = "close-sidebar 3s forwards";
         start_button.style.animation = "rotate 3s forwards";
         main_content.style.animation = "growTo100 2.5s forwards";
         vertical_line.style.animation = 'goLeft 3s forwards'
@@ -277,7 +278,7 @@ const controller = (() => {
 
       } else if (status === "Closed") {
         start_button.setAttribute("status", "Open");
-        sidebar.style.animation = "grow 3s forwards";
+        sidebar.style.animation = "open-sidebar 3s forwards";
         start_button.style.animation = "rotate2 3s forwards";
         main_content.style.animation = "shrinkTo80 3.5s forwards";
         vertical_line.style.animation = 'goRight 3s forwards'
