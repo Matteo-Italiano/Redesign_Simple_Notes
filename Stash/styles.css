@@ -89,7 +89,7 @@ button:hover {
 
 }
 
-#container--for--save--button{
+#container-for-save-button{
     word-break: break-word; 
     overflow-wrap: break-word; 
     padding: 15px;
@@ -110,7 +110,7 @@ button:hover {
     display: flex;
 }
 
-.side-bar {
+.sidebar {
     display: flex;
     height: 100vh;
     top: 0;
@@ -121,7 +121,7 @@ button:hover {
     flex: 0 0 370px
 }
 
-.main-content {
+.main_content {
     background-color: rgb(255, 255, 255);
     word-break: break-word; 
     overflow-wrap: break-word; 
@@ -140,7 +140,7 @@ button:hover {
     height: 100vh;
 }
 
-.tool-box {
+.toolbox {
     min-height: 80px;
     width: 370px;
     background-color: #F2F2F2;
@@ -164,6 +164,12 @@ button:hover {
     margin-left: 15px;
 }
 
+#search-bar{
+    z-index: 1;
+    width: 250px;
+    height: 34px;
+}
+
 .search-bar {
     align-items: center;
     justify-content: center;
@@ -172,15 +178,12 @@ button:hover {
     height: 100%;
 }
 
-#searchbar--image{
+#search-bar-image{
     grid-column: 1;
     grid-row: 1;
 }
 
-#searchbar {
-    z-index: 1;
-    width: 250px;
-    height: 34px;
+#search-bar {
     margin-left: 5px;
     grid-column: 1;
     grid-row: 1;
@@ -202,7 +205,7 @@ button:hover {
     height: 100%;
 }
 
-#create--note--image {
+#create-note-image {
     align-self: center;
     justify-self: center;
     height: 24px;
@@ -251,7 +254,7 @@ button:hover {
     margin-left: 16px;
 }
 
-#delete--image {
+#delete-bin-image {
     position: absolute;
     justify-self: right;
     right: 0;
@@ -387,12 +390,14 @@ p:focus::before {
     background-color: #F2F2F2;
 }
 
-.selected{
-    background-color: #F2F2F2;
-}
+@keyframes retract {
+    0% {
+        width: 370px
+    }
 
-#div-exsiting-notes > div:not(.selected) {
-    background-color: #FFFFFF;
+    100% {
+        width: 0px;
+    }
 }
 
 @keyframes rotate {
@@ -404,9 +409,6 @@ p:focus::before {
         transform: rotate(180deg);
     }
 }
-.rotate{
-    animation: rotate 2s forwards;
-}
 
 @keyframes rotate2 {
     0% {
@@ -417,10 +419,16 @@ p:focus::before {
         transform: rotate(0);
     }
 }
-.rotate2{
-    animation: rotate2 2s forwards;
-}
 
+@keyframes grow {
+    0% {
+        width: 10px;
+    }
+
+    100% {
+        width: 370px;
+    }
+}
 
 @keyframes growTo100 {
     0%{
@@ -430,9 +438,6 @@ p:focus::before {
     100%{
         width: 100%;
     }
-}
-.growTo100{
-    animation: growTo100 2.5s forwards;
 }
 
 @keyframes shrinkTo80 {
@@ -444,10 +449,6 @@ p:focus::before {
         width: 80%;
     }
 }
-.shrinkTo80{
-    animation: shrinkTo80 2.5s forwards;
-}
-
 
 @keyframes goLeft {
     0% {
@@ -458,9 +459,6 @@ p:focus::before {
         left: 10px
     }
 }
-.goLeft{
-    animation: goLeft 2s forwards;
-}
 
 @keyframes goRight {
     0% {
@@ -470,9 +468,6 @@ p:focus::before {
     100%{
         left: 370px
     }
-}
-.goRight{
-    animation: goRight 2s forwards;
 }
 
 @keyframes close-sidebar {
@@ -488,9 +483,6 @@ p:focus::before {
     }
     
 }
-.close-sidebar{
-    animation: close-sidebar 2s forwards;
-}
 
 @keyframes open-sidebar {
     0%{
@@ -504,9 +496,3 @@ p:focus::before {
         max-width: 370px;
     }
 }
-.open-sidebar{
-    animation: open-sidebar 2s forwards;
-}
-
-
-

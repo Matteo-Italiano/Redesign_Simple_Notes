@@ -13,21 +13,21 @@
 <body>
 
     <div id="main-container" class="container">
-        <div class="side-bar" id="sidebar">
+        <div class="sidebar" id="sidebar">
 
-            <div class="tool-box">
+            <div class="toolbox">
     
                 <div class="logo">
                     <img id="logo" src="/Img/Group 57.png" alt="logo">
                 </div>
     
                 <div class="search-bar">
-                    <input id="searchbar" type="text" value="" placeholder="Search">
-                    <img id="searchbar--image" src="/Img/Search.svg" alt="">
+                    <input id="search-bar" type="text" value="" onchange="controller.searchbar()" placeholder="Search">
+                    <img id="search-bar-image" src="/Img/Search.svg" alt="">
                 </div>
     
                 <div class="create-note">
-                    <img id="create--note--image" src="/Img/n-edit 1.png" alt="create-note" onclick="controller.addNote()">
+                    <img id="create-note-image" src="/Img/n-edit 1.png" alt="create-note" onclick="controller.addNote()">
                 </div>
     
             </div>
@@ -45,10 +45,10 @@
     
         </div>
             
-            <div class="main-content" id="main--content">
-                <img id="delete--image" onclick="controller.deleteNoteNew()" src="/Img/bin 1.png" alt="delete">
+            <div id="main-content" class="main_content">
+                <img id="delete-bin-image" onclick="controller.deleteNoteNew()" src="/Img/bin 1.png" alt="Delete Button">
     
-                <div id="container--for--save--button">
+                <div id="container-for-save-button">
                     <div class="A4-Blatt">
                     
                         <div id="title-area-div">
@@ -74,10 +74,10 @@
 <!----Hier ist die Vorlage-->
 <div id="existing-note-template" noteid="000000" selected="" class="notes-container" hidden>
     <div>
-    <h2 class="title" id="title" placeholder=""></h2>
+    <h2 class="title" id="existing-note-title" placeholder=""></h2>
     </div>
     <div>
-    <p class="text" id="text"></p>
+    <p class="text" id="existing-note-text"></p>
     </div>
     <div>
     <p id="date-for-small-note" class="datum"></p>
